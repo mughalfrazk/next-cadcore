@@ -1,0 +1,72 @@
+@mixin flex($direction, $justify, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+}
+
+// Scrollbar
+
+@mixin scrollbars(
+  $size,
+  $foreground-color,
+  $background-color: mix($foreground-color, white, 50%)
+) {
+  // For Google Chrome
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $background-color;
+  }
+
+  // For Internet Explorer
+  & {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
+
+// Responsiveness
+
+@mixin xxlarge() {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin xlarge() {
+  @media (min-width: 1080px) {
+    @content;
+  }
+}
+
+@mixin large() {
+  @media (min-width: 992px) {
+    @content;
+  }
+}
+
+@mixin medium() {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin small() {
+  @media (min-width: 576px) {
+    @content;
+  }
+}
+
+@mixin xsmall() {
+  @media (max-width: 576px) {
+    @content;
+  }
+}

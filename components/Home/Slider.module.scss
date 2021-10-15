@@ -1,0 +1,8 @@
+@use '../../styles/partials' as *;
+
+.container {
+  height: 100vh;
+  background: url("../../assets/slider-02.jpg") no-repeat top center;
+  background-size: cover;
+  @include flex(row, center, center)
+}

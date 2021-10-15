@@ -1,0 +1,42 @@
+@use '../../styles/partials' as *;
+
+.header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-top: 10px;
+  padding-bottom: 5px;
+  @include flex(row, space-between, center);
+  @include xlarge() {
+    padding: 10px 100px 5px;
+  }
+  img {
+    height: 50px;
+  }
+}
+
+.menuIcon {
+  margin: 0 1rem;
+  background: transparent;
+  border: none;
+
+  @include flex(column, flex-end, center);
+
+  &:hover {
+    cursor: pointer;
+    span {
+      background-color: rgb(3, 3, 3);
+      transition: 500ms;
+    }
+  }
+
+  span {
+    display: block;
+    background: rgb(31, 31, 31);
+    border-radius: 1rem;
+    width: 2rem;
+    height: 0.15rem;
+    margin: 0.12rem;
+  }
+}

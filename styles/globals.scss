@@ -1,3 +1,5 @@
+@use './partials' as *;
+
 html,
 body {
   padding: 0;
@@ -6,11 +8,22 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+body {
+  @include scrollbars(6px, #838383, #dddddd)
+}
+
 a {
   color: inherit;
   text-decoration: none;
 }
 
 * {
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
+
+ul {
+  list-style-type: none;
+}
+
