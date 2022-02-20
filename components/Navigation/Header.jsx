@@ -1,7 +1,6 @@
 import Image from "next/image";
 
 import { LOGO } from "../../constants/AssetConstants";
-import Navlinks from "./Navlinks";
 import styles from "./Header.module.scss";
 
 const Header = (props) => {

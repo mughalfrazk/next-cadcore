@@ -1,8 +1,40 @@
-@use '../../styles/partials' as *;
+@use "../../styles/partials" as *;
 
-.container {
-  height: 100vh;
-  background: url("../../assets/slider-02.jpg") no-repeat top center;
-  background-size: cover;
-  @include flex(row, center, center)
+.sliderBg {
+	height: 100vh;
+	background: url("../../assets/slider-02.jpg") no-repeat top center;
+	background-size: cover;
+	padding: 5rem 8rem;
+	@include flex(column, center, flex-start);
+}
+
+.heading {
+	font-family: "Conthrax SemiBold";
+	letter-spacing: 1px;
+	text-align: left;
+	// text-shadow: 3px 3px 1px #00000010;
+}
+
+.line1 {
+	color: $secondaryColor;
+	font-size: 2.5rem;
+}
+
+.line2 {
+	color: $white;
+	font-size: 2.3rem;
+	text-shadow: 3px 3px 1px #00000000;
+	background-color: $primaryColor;
+	// box-shadow: inset 0px -20px 0px 0px $primaryColor;
+}
+
+.subHeading {
+	font-size: 1.3rem;
+	letter-spacing: 1px;
+	font-family: "Conthrax SemiBold";
+	// background-color: $primaryColor;
+	color: $secondaryColor;
+	padding: 0.4rem 1rem;
+	margin-top: 1rem;
+	// background-color: $primaryColor;
 }
