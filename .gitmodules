@@ -1,0 +1,3 @@
+[submodule "gltfjsx"]
+	path = gltfjsx
+	url = https://github.com/mughalfrazk/gltfjsx.git
