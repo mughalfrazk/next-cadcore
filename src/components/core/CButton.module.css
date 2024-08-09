@@ -1,0 +1,107 @@
+.root {
+  &[data-variant='filled'] {
+    background-color: var(--mantine-color-primary-9);
+
+    path {
+      stroke: var(--mantine-color-white);
+    }
+
+    p {
+      color: var(--mantine-color-white) !important;
+    }
+
+    &:hover {
+      background-color: var(--mantine-color-primary-3);
+    }
+
+    &:disabled {
+      background-color: var(--mantine-color-grey-1);
+      cursor: default;
+
+      path {
+        stroke: var(--mantine-color-primary-9);
+        opacity: 0.3;
+      }
+
+      p {
+        color: var(--mantine-color-primary-9) !important;
+        opacity: 0.3;
+      }
+    }
+  }
+
+  &[data-variant='light'] {
+    background-color: var(--mantine-color-grey-1);
+
+    &:hover {
+      background-color: var(--mantine-color-grey-2);
+    }
+
+    &:disabled {
+      background-color: var(--mantine-color-grey-1);
+      cursor: default;
+
+      path {
+        stroke: var(--mantine-color-primary-9);
+        opacity: 0.3;
+      }
+
+      p {
+        color: var(--mantine-color-primary-9) !important;
+        opacity: 0.3;
+      }
+    }
+  }
+
+  &[data-variant='outline'] {
+    border-color: var(--mantine-color-primary-9);
+
+    &:hover {
+      background-color: var(--mantine-white);
+      border-color: var(--mantine-color-primary-3);
+
+      path {
+        stroke: var(--mantine-color-primary-3);
+      }
+
+      p {
+        color: var(--mantine-color-primary-3) !important;
+      }
+    }
+
+    &:disabled {
+      border-color: var(--mantine-color-primary-9);
+      background-color: var(--mantine-white);
+      opacity: 0.32;
+      cursor: default;
+
+      path {
+        stroke: var(--mantine-color-primary-9);
+      }
+
+      p {
+        color: var(--mantine-color-primary-9) !important;
+      }
+    }
+  }
+
+  &[data-variant='subtle'] {
+    &:hover {
+      background-color: var(--mantine-color-grey-1);
+    }
+
+    &:disabled {
+      background-color: var(--mantine-white);
+      opacity: 0.32;
+      cursor: default;
+
+      path {
+        stroke: var(--mantine-color-primary-9);
+      }
+
+      p {
+        color: var(--mantine-color-primary-9) !important;
+      }
+    }
+  }
+}

@@ -1,9 +1,12 @@
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
+import 'mantine-datatable/styles.layer.css';
 
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
-import MainLayout from "@/components/layout/appShell";
+import { cadcoreTheme } from "@/styles/cadcore-theme";
+import { Notifications } from "@mantine/notifications";
 
 export const metadata = {
   title: "My Mantine app",
@@ -21,8 +24,9 @@ export default function RootLayout({
         <ColorSchemeScript />
       </head>
       <body>
-        <MantineProvider defaultColorScheme="dark">
-          <MainLayout>{children}</MainLayout>
+        <MantineProvider defaultColorScheme="light" theme={cadcoreTheme}>
+          <Notifications />
+          {children}
         </MantineProvider>
       </body>
     </html>
