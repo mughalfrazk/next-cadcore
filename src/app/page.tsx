@@ -1,12 +1,21 @@
-import Image from "next/image";
-import styles from "./page.module.css";
-import { ModelViewer } from "@/components/viewer";
+"use client";
+
+import Link from "next/link";
+
+import CButton from "@/components/core/CButton";
+import Slider from "@/components/home/Slider";
+import classes from "./page.module.css";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
-      <h1>Hello World</h1>
-      <ModelViewer />
+    <main className={classes.main}>
+      {/* <Slider /> */}
+      <Link href="/auth">
+        <CButton>Go to Login</CButton>
+      </Link>
+      {/* <CButton type="submit" onClick={getMyProfileApi}>
+        Get Role
+      </CButton> */}
     </main>
   );
 }

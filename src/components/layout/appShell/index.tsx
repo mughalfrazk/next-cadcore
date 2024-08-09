@@ -1,8 +1,11 @@
-"use client"
+"use client";
 
-import { AppShell, Burger, Group, Skeleton, Title } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import React, { ReactNode } from "react";
+import { AppShell } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+
+import Navbar from "./Navbar";
+import Header from "./Header";
 
 const MainLayout = ({ children }: { children: ReactNode }) => {
   const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
@@ -19,30 +22,14 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
       padding="md"
     >
       <AppShell.Header>
-        <Group h="100%" px="md">
-          <Burger
-            opened={mobileOpened}
-            onClick={toggleMobile}
-            hiddenFrom="sm"
-            size="sm"
-          />
-          <Burger
-            opened={desktopOpened}
-            onClick={toggleDesktop}
-            visibleFrom="sm"
-            size="sm"
-          />
-          <Title order={2}>Logo</Title>
-        </Group>
+        <Header
+          mobileOpened={mobileOpened}
+          desktopOpened={desktopOpened}
+          toggleMobile={toggleMobile}
+          toggleDesktop={toggleDesktop}
+        />
       </AppShell.Header>
-      <AppShell.Navbar p="md">
-        Navbar
-        {Array(15)
-          .fill(0)
-          .map((_, index) => (
-            <Skeleton key={index} h={28} mt="sm" animate={false} />
-          ))}
-      </AppShell.Navbar>
+      <Navbar />
       <AppShell.Main>{children}</AppShell.Main>
     </AppShell>
   );
