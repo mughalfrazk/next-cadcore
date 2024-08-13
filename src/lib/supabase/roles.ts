@@ -1,13 +1,21 @@
 "use server"
 
-import { createClient } from "@/utils/supabase/server"
+import { parseFactory } from "@/utils/parse-factory";
+import { serverApi } from "./serverApi";
+import { getServerActionError } from "@/utils/error";
+import { RoleListSchema, RoleSchema } from "../models/Role";
 
-const getRolesApi = async () => {
-  const supabase = createClient();
+const RoleListDataParser = parseFactory(RoleListSchema, "RoleListDataParser")
+const RoleDataParser = parseFactory(RoleSchema, "RoleDataParser")
 
-  const result = await supabase.from("role").select()
-  console.log(result)
-  return result
+const getAllRolesApi = async () => {
+  const { data, error } = await serverApi().from("role").select()
+  return RoleListDataParser(data)
 }
 
-export { getRolesApi }
+const getRoleByName = async (name: string) => {
+  const { data } = await serverApi().from("role").select().eq("name", name)
+  return RoleDataParser(data?.[0])
+}
+
+export { getAllRolesApi, getRoleByName }

@@ -1,5 +1,7 @@
 import {
   IconLayoutDashboardFilled,
+  IconBriefcaseFilled,
+  IconUserFilled,
   IconActivity,
   IconUsers,
   IconProps,
@@ -22,9 +24,14 @@ const routes: RouteItem[] = [
     path: "/dashboard",
   },
   {
-    icon: IconUsers,
-    label: "Users",
+    icon: IconUserFilled,
+    label: "Employees",
     path: "/dashboard/users",
+  },
+  {
+    icon: IconBriefcaseFilled,
+    label: "Clients",
+    path: "/dashboard/clients",
   },
   { icon: IconActivity, label: "Activity", path: "#hello" },
 ];

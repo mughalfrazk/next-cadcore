@@ -1,8 +1,7 @@
 "use client";
 
-import { Box } from "@mantine/core";
-import { showNotification } from "@mantine/notifications";
-import { DataTable } from "mantine-datatable";
+import { Box, useMantineTheme } from "@mantine/core";
+import { DataTable, DataTableRowClickHandler } from "mantine-datatable";
 import { useEffect, useState } from "react";
 
 const dummy_columns = [
@@ -30,41 +29,45 @@ const dummy_rows = [
   { id: 1, name: "Joe Biden", bornIn: 1942, party: "Democratic" },
 ];
 
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 30;
+
+type TableProps = {
+  data?: unknown[];
+  columns?: any;
+  page_size?: number;
+  onRowClick?: DataTableRowClickHandler<unknown>;
+};
 
 const Table = ({
   columns = dummy_columns,
-  records = dummy_rows,
+  data = dummy_rows,
   page_size = PAGE_SIZE,
-}: any) => {
+  onRowClick = () => {},
+}: TableProps) => {
+  const theme = useMantineTheme();
   const [page, setPage] = useState(1);
-  const [tableData, setTableData] = useState(records.slice(0, page_size));
+  const [records, setRecords] = useState(data.slice(0, page_size));
 
   useEffect(() => {
     const from = (page - 1) * PAGE_SIZE;
     const to = from + PAGE_SIZE;
-    setTableData(records.slice(from, to));
+    setRecords(data.slice(from, to));
   }, [page]);
 
   return (
     <DataTable
       withTableBorder
-      borderRadius="md"
+      borderRadius={theme.defaultRadius}
       striped
       highlightOnHover
-      records={tableData}
+      records={data}
       columns={columns}
-      totalRecords={tableData.length}
-      recordsPerPage={10}
-      page={1}
-      onPageChange={(p) => setPage(p)}
-      onRowClick={({ record: { name, party, bornIn } }: any) =>
-        showNotification({
-          title: `Clicked on ${name}`,
-          message: `You clicked on ${name}, a ${party.toLowerCase()} president born in ${bornIn}`,
-          withBorder: true,
-        })
-      }
+      minHeight={170}
+      onRowClick={onRowClick}
+      // totalRecords={records.length}
+      // recordsPerPage={page_size}
+      // page={1}
+      // onPageChange={(p) => setPage(p)}
     />
   );
 };
