@@ -47,6 +47,7 @@ const CButton = ({
       px={isIconOnly && isCompact ? 9 : undefined}
       onClick={onClick}
       style={{ ...defaultProps.style }}
+      loaderProps={{ type: "dots" }}
       {...defaultProps}
     >
       {children}

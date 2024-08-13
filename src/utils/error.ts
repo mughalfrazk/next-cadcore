@@ -39,6 +39,7 @@ export const getServerActionError = (status: number = 500, body: AuthError | Zod
       break;
   }
 
+  console.log(body)
   return response
 }
 

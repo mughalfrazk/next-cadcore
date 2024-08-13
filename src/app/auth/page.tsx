@@ -1,7 +1,7 @@
 import { Text } from "@mantine/core";
 import Link from "next/link";
 
-import LoginForm from "@/components/auth/login-form";
+import LoginForm from "@/components/auth/LoginForm";
 import CadcoreLogo from "@/components/icons/CadcoreLogo";
 import classes from "./page.module.css";
 

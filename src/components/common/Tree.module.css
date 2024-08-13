@@ -1,0 +1,8 @@
+.tree li {
+  padding: 0.45rem 0.7rem;
+  border-bottom: 1px solid var(--app-shell-border-color);
+}
+
+.tree li:last-child {
+  border: none;
+}

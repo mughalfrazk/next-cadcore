@@ -1,6 +1,5 @@
 import { AppShell, NavLink } from "@mantine/core";
 
-import { useState } from "react";
 import routes from "./routes";
 import { usePathname } from "next/navigation";
 

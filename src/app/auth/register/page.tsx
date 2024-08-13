@@ -2,7 +2,7 @@ import { Text } from "@mantine/core";
 import Link from "next/link";
 
 import CadcoreLogo from "@/components/icons/CadcoreLogo";
-import RegisterForm from "@/components/auth/register-form";
+import RegisterForm from "@/components/auth/RegisterForm";
 import classes from "../page.module.css";
 
 const LoginPage = () => {

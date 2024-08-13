@@ -3,6 +3,7 @@
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import 'mantine-datatable/styles.layer.css';
+import '@mantine/dropzone/styles.css';
 
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 import { cadcoreTheme } from "@/styles/cadcore-theme";
