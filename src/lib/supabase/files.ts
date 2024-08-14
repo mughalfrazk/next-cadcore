@@ -1,5 +1,6 @@
 "use server"
 
+import fs from "fs"
 import { FileWithPath } from "@mantine/dropzone"
 
 import { serverApi } from "./serverApi"
@@ -36,15 +37,5 @@ const getListOfFilesApi = async (folder_name: string) => {
   return treeNodeData
 }
 
-const getFileDetailByPathApi = async (path: string) => {
-  const { data } = await serverApi().storage.from("client_files").download(path)
-  if (data) {
-    const formData = new FormData()
-    formData.append("file", data)
-    return formData
-  }
-} 
 
-
-
-export { uploadFileApi, getListOfFilesApi, getFileDetailByPathApi }
+export { uploadFileApi, getListOfFilesApi }

@@ -1,12 +1,6 @@
 import { Dropzone } from "@mantine/dropzone";
-import { useDropzone } from "react-dropzone";
 
-const FileDrop = ({ onDrop }) => {
-  // const { getRootProps, getInputProps, isDragActive, fileRejections } =
-  //   useDropzone({
-  //     onDrop,
-  //   });
-
+const FileDrop = ({ onDrop }: any) => {
   return (
     <Dropzone
       style={{

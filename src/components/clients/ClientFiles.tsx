@@ -1,22 +1,26 @@
-"use server"
+"use server";
 
-import { IconFile3d } from "@tabler/icons-react";
-import { Group, rem, RenderTreeNodePayload } from "@mantine/core";
+import { Card, TreeNodeData } from "@mantine/core";
 
 import { ProfileModel } from "@/lib/models/Profile";
-import { getListOfFilesApi } from "@/lib/supabase/files";
-import { clientApi } from "@/lib/supabase/clientApi";
 import FileStructure from "../common/Tree";
 import Leaf from "./LeafItem";
+import { Fragment } from "react";
+import Viewer from "../viewer";
 
 type ClientFilesProps = {
-  user: ProfileModel;
+  files: TreeNodeData[];
 };
 
-const ClientFiles = async ({ user }: ClientFilesProps) => {
-  const files = await getListOfFilesApi(user.email);
-
-  return <FileStructure data={files} renderNode={Leaf} />;
+const ClientFiles = async ({ files }: ClientFilesProps) => {
+  return (
+    <Fragment>
+      <FileStructure data={files} renderNode={Leaf} />
+      <Card withBorder mb={12} p={0}>
+        <Viewer />
+      </Card>
+    </Fragment>
+  );
 };
 
 export default ClientFiles;

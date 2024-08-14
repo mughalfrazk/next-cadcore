@@ -100,7 +100,7 @@ export const data: TreeNodeData[] = [
 
 const FileStructure = ({
   data,
-  renderNode,
+  renderNode
 }: {
   data: TreeNodeData[];
   renderNode: (payload: RenderTreeNodePayload) => ReactNode;

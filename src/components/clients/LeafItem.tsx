@@ -1,20 +1,45 @@
-"use client"
+"use client";
 
-import { clientApi } from "@/lib/supabase/clientApi";
-import { Group, rem, RenderTreeNodePayload } from "@mantine/core";
-import { IconFile3d } from "@tabler/icons-react";
+import { useContext, useState } from "react";
+import { Group, Loader, rem, RenderTreeNodePayload } from "@mantine/core";
+import { IconCube } from "@tabler/icons-react";
+
+import { ViewerContext } from "@/context/viewer-context";
+import { getFileDetailByPathApi } from "@/lib/supabase/client/files";
 
 const Leaf = ({ node }: RenderTreeNodePayload) => {
+  const { setFileName, setBuffers } = useContext(ViewerContext);
+  const [loading, setLoading] = useState<boolean>(false);
+
   const onItemClick = async () => {
-    const { data } = await clientApi()
-      .storage.from("client_files")
-      .download("client@gmail.com/1033561.jpg");
-    console.log(data);
+    if (!node.label) return;
+    const fileName = node.label as string;
+    try {
+      setLoading(true);
+      const result = await getFileDetailByPathApi(
+        `client@gmail.com/${fileName}`
+      );
+      console.log(result);
+
+      setFileName(fileName);
+      setBuffers(result);
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <Group onClick={onItemClick}>
-      <IconFile3d stroke={1.6} style={{ width: rem(22), height: rem(22) }} />
+      {loading ? (
+        <Loader size="xs" type="oval" />
+      ) : (
+        <IconCube
+          stroke={2}
+          style={{ width: rem(20), height: rem(20) }}
+          color="var(--mantine-color-primary-9)"
+        />
+      )}
       {node.label}
     </Group>
   );
