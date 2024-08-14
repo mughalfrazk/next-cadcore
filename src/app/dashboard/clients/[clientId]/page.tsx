@@ -1,12 +1,12 @@
 import { Fragment } from "react";
 import { Avatar, Card, Group, Stack, Title, Text, rem } from "@mantine/core";
-import { IconFileDelta } from "@tabler/icons-react";
+import { IconFile3d } from "@tabler/icons-react";
 
 import FileUpload from "@/components/clients/FileUpload";
 import { getProfileByIdApi } from "@/lib/supabase/profiles";
 import { getListOfFilesApi } from "@/lib/supabase/files";
-import FileStructure from "@/components/common/Tree";
 import ClientFiles from "@/components/clients/ClientFiles";
+import Viewer from "@/components/viewer";
 
 const UserDetail = async ({ params }: { params: { clientId: string } }) => {
   const user = await getProfileByIdApi(params.clientId);
@@ -25,9 +25,9 @@ const UserDetail = async ({ params }: { params: { clientId: string } }) => {
           </Stack>
           <Card bg={"gray.1"}>
             <Group gap={0} px={5}>
-              <IconFileDelta
+              <IconFile3d
                 style={{ width: rem(50), height: rem(50) }}
-                stroke={1.5}
+                stroke={1.3}
                 color="var(--mantine-color-primary-9)"
               />
               <Stack gap={0} ms={12} ps={20} style={{ borderLeft: "1px solid var(--app-shell-border-color)" }}>
@@ -38,7 +38,7 @@ const UserDetail = async ({ params }: { params: { clientId: string } }) => {
           </Card>
         </Group>
       </Card>
-      <ClientFiles user={user} />
+      <ClientFiles user={user} files={files} />
       <FileUpload user={user} />
     </Fragment>
   );

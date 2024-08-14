@@ -1,11 +1,19 @@
 "use client";
 
 import React, { useEffect } from "react";
-import Viewer from "./viewer";
-import { Box } from "@mantine/core";
-import { ThreeConfigModel } from "@/lib/models/Three";
+import { IconArrowsMaximize, IconArrowsMinimize } from "@tabler/icons-react";
+import { Box, Group, Loader, rem } from "@mantine/core";
+import { useFullscreen } from "@mantine/hooks";
 
-const Result = ({ scene, generateScene }) => {
+import { ThreeConfigModel } from "@/lib/models/Three";
+import { useZIndex } from "@/hooks/use-z-index";
+import CButton from "../core/CButton";
+import Viewer from "./viewer";
+
+const Result = ({ scene, generateScene }: any) => {
+  const z = useZIndex();
+  const { ref, toggle, fullscreen } = useFullscreen();
+
   const config: ThreeConfigModel = {
     types: false,
     shadows: true,
@@ -23,22 +31,41 @@ const Result = ({ scene, generateScene }) => {
     generateScene(config);
   }, []);
 
-  return !scene ? (
-    <p>Loading ...</p>
-  ) : (
-    <Box h={"100%"}>
-      {scene && (
-        <Viewer
-          scene={scene}
-          shadows={true}
-          contactShadow={true}
-          autoRotate={true}
-          environment="city"
-          preset="rembrandt"
-          intensity={1.0}
-        />
+  return (
+    <Group
+      ref={ref}
+      bg={"white"}
+      justify="center"
+      align="center"
+      w={"100%"}
+      style={{ position: "relative", zIndex: z.base }}
+    >
+      <CButton
+        isIconOnly={true}
+        style={{ position: "absolute", zIndex: z.popover, top: 20, right: 20 }}
+        onClick={toggle}
+        px={6}
+      >
+        {fullscreen ? <IconArrowsMaximize /> : <IconArrowsMinimize />}
+      </CButton>
+      {!scene ? (
+        <Loader />
+      ) : (
+        <Box w="100%" h="100%">
+          {scene && (
+            <Viewer
+              scene={scene}
+              shadows={true}
+              contactShadow={true}
+              autoRotate={true}
+              environment="city"
+              preset="rembrandt"
+              intensity={1.0}
+            />
+          )}
+        </Box>
       )}
-    </Box>
+    </Group>
   );
 };
 

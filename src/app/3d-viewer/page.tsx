@@ -1,4 +1,4 @@
-import ModelViewer from "@/components/viewer";
+import ModelViewer from "@/components/standalone-viewer";
 
 const Viewer = () => {
   return <ModelViewer />;
