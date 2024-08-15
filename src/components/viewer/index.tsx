@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
@@ -8,14 +8,16 @@ import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.j
 import { KTXLoader } from "three-stdlib";
 import JSZip from "jszip";
 
+import { getFileDetailByPathApi } from "@/lib/supabase/client/files";
 import { isGlb, isGltf, isZip } from "@/utils/isExtension";
 import { ThreeConfigModel } from "@/lib/models/Three";
-import { ViewerContext } from "@/context/viewer-context";
 import Result from "./result";
 
-const ModelViewer = () => {
-  const { fileName: ctxFileName, buffers: ctxBuffer } =
-    useContext(ViewerContext);
+type ModelViewerProps = {
+  modelPath: string
+}
+
+const ModelViewer = ({ modelPath }: ModelViewerProps) => {
   const [fileName, setFileName] = useState<string>("");
   const [buffers, setBuffers] = useState<Map<string, ArrayBuffer>>();
   const [scene, setScene] = useState(null);
@@ -82,40 +84,53 @@ const ModelViewer = () => {
       );
     }
 
-    if (!scene) setScene(result.scene);
+    if (!scene) {
+      const loader = new THREE.TextureLoader()
+      const backgroundTexture = loader.load("https://i.imgur.com/upWSJlY.jpg")
+
+      result.scene.background = backgroundTexture
+      setScene(result.scene)
+    };
   };
 
-  const loadDownloadedFile = async (f: any, b: any) => {
-    const buffers: any = new Map();
-
-    buffers.set(f, b);
-
-    for (const [path, buffer] of buffers.entries()) {
-      if (isZip(path)) {
-        const { files } = await JSZip.loadAsync(buffer);
-        for (const [path, file] of Object.entries(files)) {
-          const buffer = await file.async("arraybuffer");
-          buffers.set(path, buffer);
+  const loadDownloadedFile = async (path: string) => {
+    try {
+      const fileName = path.split("/")[1]
+      const result = await getFileDetailByPathApi(path);
+  
+      const buffers: any = new Map();
+      buffers.set(fileName, result);
+  
+      for (const [path, buffer] of buffers.entries()) {
+        if (isZip(path)) {
+          const { files } = await JSZip.loadAsync(buffer);
+          for (const [path, file] of Object.entries(files)) {
+            const buffer = await file.async("arraybuffer");
+            buffers.set(path, buffer);
+          }
+          buffers.delete(path);
         }
-        buffers.delete(path);
       }
+  
+      const filePath = Array.from(buffers.keys()).find(
+        (path) => isGlb(path) || isGltf(path)
+      ) as string;
+  
+      setBuffers(buffers);
+      setFileName(filePath);
+    } catch (error) {
+      console.log(error)
     }
-
-    const filePath = Array.from(buffers.keys()).find(
-      (path) => isGlb(path) || isGltf(path)
-    ) as string;
-
-    setBuffers(buffers);
-    setFileName(filePath);
   };
 
   useEffect(() => {
-    if (!!ctxFileName && !!ctxBuffer) {
-      console.log("filename in viewer: ", ctxFileName);
-      console.log("buffers in viewer: ", ctxBuffer);
-      loadDownloadedFile(ctxFileName, ctxBuffer);
+    if (modelPath) loadDownloadedFile(modelPath)
+
+    return () => {
+      setBuffers(undefined)
+      setFileName("")
     }
-  }, [ctxFileName, ctxBuffer]);
+  }, [modelPath])
 
   return buffers && <Result scene={scene} generateScene={generateScene} />;
 };

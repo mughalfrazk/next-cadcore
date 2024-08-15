@@ -1,6 +1,7 @@
 import { Box } from "@mantine/core";
 import MainLayout from "@/components/layout/appShell";
 import ViewerProvider from "@/context/viewer-context";
+import ConditionalLayout from "./conditional-layout";
 
 export default function RootLayout({
   children,
@@ -9,11 +10,11 @@ export default function RootLayout({
 }) {
   return (
     <main>
-      <MainLayout>
+      <ConditionalLayout>
         <ViewerProvider>
           <Box>{children}</Box>
         </ViewerProvider>
-      </MainLayout>
+      </ConditionalLayout>
     </main>
   );
 }

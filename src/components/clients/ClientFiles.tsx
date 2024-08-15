@@ -1,11 +1,10 @@
 "use server";
 
+import { Fragment } from "react";
 import { Card, TreeNodeData } from "@mantine/core";
 
-import { ProfileModel } from "@/lib/models/Profile";
 import FileStructure from "../common/Tree";
 import Leaf from "./LeafItem";
-import { Fragment } from "react";
 import Viewer from "../viewer";
 
 type ClientFilesProps = {
