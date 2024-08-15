@@ -38,7 +38,7 @@ const UserDetail = async ({ params }: { params: { clientId: string } }) => {
           </Card>
         </Group>
       </Card>
-      <ClientFiles user={user} files={files} />
+      <ClientFiles files={files} />
       <FileUpload user={user} />
     </Fragment>
   );
