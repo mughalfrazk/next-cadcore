@@ -9,7 +9,7 @@ export const cadcoreTheme: MantineThemeOverride = createTheme({
   colors: {
     primary: ['', '#C9F7D3', '', '#fa743e', '', '', '', '', '', '#f76024'],
     secondary: ['', '#4d4d4d', '', '', '', '', '', '', '', ''],
-    grey: ['#c9c9c9', '#f7602445', '#f760244f', '#b3b3b3', '#999999', '', '', '', '', ''],
+    grey: ['#f1f5f8', '#f7602445', '#f760244f', '#b3b3b3', '#999999', '', '', '', '', ''],
     red: ['', '', '', '#e03131', '', '', '#e03131', '', '', '',]
   },
   primaryShade: 3,

@@ -5,15 +5,11 @@ import UsersTable from "@/components/users/UsersTable";
 import { getClientListApi } from "@/lib/supabase/profiles";
 
 const Users = async () => {
-  const result = await getClientListApi()
+  const result = await getClientListApi();
 
   return (
     <Box>
-      <Group justify="space-between" mb={10}>
-        <Text>Clients List</Text>
-        <AddUserDialog />
-      </Group>
-
+      <AddUserDialog />
       <UsersTable users={result} />
     </Box>
   );

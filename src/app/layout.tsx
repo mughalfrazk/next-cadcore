@@ -1,5 +1,3 @@
-// Import styles of packages that you've installed.
-// All packages except `@mantine/hooks` require styles imports
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import 'mantine-datatable/styles.layer.css';
@@ -10,7 +8,7 @@ import { cadcoreTheme } from "@/styles/cadcore-theme";
 import { Notifications } from "@mantine/notifications";
 
 export const metadata = {
-  title: "My Mantine app",
+  title: "Cadcore",
   description: "I have followed setup instructions carefully",
 };
 

@@ -1,9 +1,9 @@
 /* eslint-disable react/no-unknown-property */
 import React, { Suspense, useLayoutEffect, useRef } from "react";
-import { Canvas } from "@react-three/fiber";
+import { Canvas as ThreeCanvas } from "@react-three/fiber";
 import { OrbitControls, Stage } from "@react-three/drei";
 
-const Viewer = ({
+const Canvas = ({
   scene,
   shadows,
   contactShadow,
@@ -12,7 +12,8 @@ const Viewer = ({
   preset,
   intensity,
 }: any) => {
-  const ref = useRef();
+  const ref: any = useRef();
+
   useLayoutEffect(() => {
     scene.traverse((obj: any) => {
       if (obj.isMesh) {
@@ -23,7 +24,7 @@ const Viewer = ({
   }, [scene, shadows]);
 
   return (
-    <Canvas
+    <ThreeCanvas
       gl={{ preserveDrawingBuffer: true }}
       shadows
       dpr={[1, 1.5]}
@@ -44,8 +45,8 @@ const Viewer = ({
         </Stage>
       </Suspense>
       <OrbitControls ref={ref} autoRotate={autoRotate} />
-    </Canvas>
+    </ThreeCanvas>
   );
 };
 
-export default Viewer;
+export default Canvas;

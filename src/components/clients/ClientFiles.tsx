@@ -1,11 +1,11 @@
 "use server";
 
-import { Fragment } from "react";
-import { Card, TreeNodeData } from "@mantine/core";
+import { TreeNodeData } from "@mantine/core";
 
 import FileStructure from "../common/Tree";
 import Leaf from "./LeafItem";
-import Viewer from "../viewer";
+import { Fragment } from "react";
+import HeadingBar from "../common/HeadingBar";
 
 type ClientFilesProps = {
   files: TreeNodeData[];
@@ -14,10 +14,12 @@ type ClientFilesProps = {
 const ClientFiles = async ({ files }: ClientFilesProps) => {
   return (
     <Fragment>
+      <HeadingBar
+        mt={30}
+        title="Project Files"
+        description="List of all the project files of the client."
+      />
       <FileStructure data={files} renderNode={Leaf} />
-      <Card withBorder mb={12} p={0}>
-        <Viewer />
-      </Card>
     </Fragment>
   );
 };

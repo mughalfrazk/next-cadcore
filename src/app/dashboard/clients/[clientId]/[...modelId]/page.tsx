@@ -2,7 +2,7 @@ import { getProfileByIdApi } from "@/lib/supabase/profiles";
 import { notFound } from "next/navigation";
 import { Card } from "@mantine/core";
 
-import Viewer from "@/components/viewer";
+import Viewer from "@/components/viewer/three-viewer";
 
 type ViewerProps = {
   params: {
