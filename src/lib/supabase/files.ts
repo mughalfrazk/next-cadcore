@@ -8,6 +8,7 @@ import { parseFactory } from "@/utils/parse-factory"
 import { FileFormDataPayload } from "@/components/clients/FileUpload"
 import { FileListSchema } from "../models/File"
 import { TreeNodeData } from "@mantine/core"
+import { revalidatePath } from "next/cache"
 
 const FileListDataParser = parseFactory(FileListSchema, "FileListDataParser")
 
@@ -22,6 +23,7 @@ const uploadFileApi = async (folder_name: string, payload: FileFormDataPayload) 
       })
   })
 
+  revalidatePath("dashboard/clients", "layout")
   return await Promise.all(promises)
 }
 

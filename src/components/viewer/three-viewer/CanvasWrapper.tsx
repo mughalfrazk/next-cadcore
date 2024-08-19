@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import {
   IconArrowsMaximize,
   IconArrowsMinimize,
@@ -11,14 +11,17 @@ import { useFullscreen } from "@mantine/hooks";
 
 import { ThreeConfigModel } from "@/lib/models/Three";
 import { useZIndex } from "@/hooks/use-z-index";
-import CButton from "../core/CButton";
-import Viewer from "./viewer";
-import CadcoreLogo from "../icons/CadcoreLogo";
+import CButton from "../../core/CButton";
+import Viewer from "./Canvas";
+import CadcoreLogo from "../../icons/CadcoreLogo";
 import { useRouter } from "next/navigation";
+import { ViewerContext } from "@/context/viewer-context";
+import Header from "./Header";
 
-const Result = ({ scene, generateScene }: any) => {
+const CanvasWrapper = () => {
+  const { scene, generateScene } = useContext(ViewerContext);
   const z = useZIndex();
-  const router = useRouter()
+  const router = useRouter();
   const { ref, toggle, fullscreen } = useFullscreen();
 
   const config: ThreeConfigModel = {
@@ -34,10 +37,6 @@ const Result = ({ scene, generateScene }: any) => {
     pathPrefix: "",
   };
 
-  const goBack = () => {
-    router.back()
-  }
-
   useEffect(() => {
     generateScene(config);
   }, []);
@@ -48,37 +47,10 @@ const Result = ({ scene, generateScene }: any) => {
       bg={"white"}
       justify="center"
       align="center"
-      // w={"100%"}
       h="100%"
       style={{ position: "relative", zIndex: z.base }}
     >
-      <Group
-        justify="space-between"
-        align="flex-start"
-        style={{
-          position: "absolute",
-          zIndex: z.popover,
-          top: 20,
-          right: 20,
-          left: 20,
-        }}
-      >
-        {!fullscreen && (
-          <CButton
-            leftSection={<IconChevronLeft />}
-            onClick={goBack}
-          >Back</CButton>
-        )}
-        <Group gap={0} align="flex-start">
-          <CadcoreLogo h={55} />
-          <Text fw={200} pt={2} style={{ fontSize: rem(30) }} c={"var(--mantine-color-grey-3)"}>
-            Studio
-          </Text>
-        </Group>
-        <CButton isIconOnly={true} onClick={toggle} px={6}>
-          {fullscreen ? <IconArrowsMinimize /> : <IconArrowsMaximize />}
-        </CButton>
-      </Group>
+      <Header toggle={toggle} fullscreen={fullscreen} />
       {!scene ? (
         <Loader />
       ) : (
@@ -96,4 +68,4 @@ const Result = ({ scene, generateScene }: any) => {
   );
 };
 
-export default Result;
+export default CanvasWrapper;

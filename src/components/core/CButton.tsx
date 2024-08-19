@@ -17,7 +17,7 @@ const getHeight = (size: string) => {
   }
 };
 
-interface CButtonProps extends ButtonProps {
+export interface CButtonProps extends ButtonProps {
   type?: "submit" | "reset" | "button";
   children: ReactNode;
   ariaLabel?: string;
