@@ -1,15 +1,14 @@
 import { Fragment } from "react";
-import { Avatar, Card, Group, Stack, Title, Text, rem } from "@mantine/core";
-import { IconFile3d } from "@tabler/icons-react";
+import { Avatar, Card, Group, Stack, Title, rem, Text } from "@mantine/core";
 
-import FileUpload from "@/components/clients/FileUpload";
+import ProjectList from "@/components/project/ProjectList";
 import { getProfileByIdApi } from "@/lib/supabase/profiles";
 import { getListOfFilesApi } from "@/lib/supabase/files";
-import ClientFiles from "@/components/clients/ClientFiles";
+import { IconFile3d } from "@tabler/icons-react";
 
 const UserDetail = async ({ params }: { params: { clientId: string } }) => {
-  const user = await getProfileByIdApi(params.clientId);
-  const files = await getListOfFilesApi(user.email);
+  const client = await getProfileByIdApi(params.clientId);
+  const files = await getListOfFilesApi(client.email);
 
   return (
     <Fragment>
@@ -19,9 +18,9 @@ const UserDetail = async ({ params }: { params: { clientId: string } }) => {
             <Avatar size="xl" m={10} color="primary" />
             <Stack align="flex-start" gap={0}>
               <Title order={2}>
-                {user.first_name} {user.last_name}
+                {client?.first_name} {client?.last_name}
               </Title>
-              <Text size="sm">{user.email}</Text>
+              <Text size="sm">{client?.email}</Text>
             </Stack>
           </Group>
           <Card bg={"gray.1"}>
@@ -46,10 +45,10 @@ const UserDetail = async ({ params }: { params: { clientId: string } }) => {
           </Card>
         </Group>
       </Card>
-      <ClientFiles files={files} />
-      <FileUpload user={user} />
+      <ProjectList client={client} />
     </Fragment>
   );
+  // return <ClientDetailPage client={client} files={files} />;
 };
 
 export default UserDetail;

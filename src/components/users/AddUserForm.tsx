@@ -66,14 +66,14 @@ const AddUserForm = ({ closeModal }: { closeModal: () => void }) => {
     <form onSubmit={onSubmit(registerHandler)}>
       <CTextInput
         {...getInputProps("first_name")}
-        type="first_name"
+        type="text"
         label="First Name"
         placeholder="Johnathan"
         size="md"
       />
       <CTextInput
         {...getInputProps("last_name")}
-        type="last_name"
+        type="text"
         label="Last Name"
         placeholder="Doe"
         mt="md"

@@ -22,10 +22,10 @@ const PublicHeader = ({ user }: HeaderProps) => {
     <Portal>
       <Box
         style={{
-          position: "fixed",
           top: 0,
           left: 0,
           right: 0,
+          position: "fixed",
           padding: "var(--mantine-spacing-xs)",
           height: rem(60),
           transform: `translate3d(0, ${pinned ? 0 : rem(-110)}, 0)`,

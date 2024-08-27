@@ -2,11 +2,7 @@
 
 import { Group, Text, rem, useMantineTheme } from "@mantine/core";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
-import { Dropzone, DropzoneProps, FileWithPath } from "@mantine/dropzone";
-
-import CButton from "../core/CButton";
-import { uploadFileApi } from "@/lib/supabase/files";
-import { ProfileModel } from "@/lib/models/Profile";
+import { Dropzone, DropzoneProps } from "@mantine/dropzone";
 
 type FileDropzoneProps = {} & DropzoneProps;
 
@@ -23,7 +19,7 @@ const FileDropzone = ({ onDrop, ...otherProps }: FileDropzoneProps) => {
       accept={{
         "model/gltf+json": [".gltf"],
         "model/gltf-binary": [".glb"],
-        "application/zip": [".zip"]
+        "application/zip": [".zip"],
       }}
       {...otherProps}
     >

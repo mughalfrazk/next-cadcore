@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Fragment } from "react";
+import { useState } from "react";
 import {
   Box,
   Card,
@@ -9,44 +9,27 @@ import {
   Progress,
   Stack,
   Text,
-  rem,
-  useMantineTheme,
 } from "@mantine/core";
-import { IconUpload, IconPhoto, IconX } from "@tabler/icons-react";
-import {
-  Dropzone,
-  DropzoneProps,
-  FileWithPath,
-  IMAGE_MIME_TYPE,
-} from "@mantine/dropzone";
+import { FileWithPath } from "@mantine/dropzone";
 
 import CButton from "../core/CButton";
-import { uploadFileApi } from "@/lib/supabase/files";
+import { uploadFileApi } from "@/lib/supabase/storage";
 import { ProfileModel } from "@/lib/models/Profile";
+import { FileFormDataPayload } from "@/lib/models/File";
 import FileDropzone from "../common/FileDropzone";
 import BlueDocuemntIcon from "../icons/BlueDocuemntIcon";
 import OrangeDocuemntIcon from "../icons/OrangeDocuemntIcon";
 
-type FileFormFields = "files";
-
-export interface FileFormDataPayload extends FormData {
-  append(
-    name: FileFormFields,
-    value: string | Blob | FileWithPath[],
-    fileName?: string
-  ): void;
-}
-
 type FileUploadProps = {
-  user: ProfileModel;
+  client: ProfileModel;
 };
 
-const FileUpload = ({ user }: FileUploadProps) => {
-  const theme = useMantineTheme();
+const FileUpload = ({ client }: FileUploadProps) => {
   const [uploadedFiles, setUploadedFiles] = useState<FileWithPath[]>();
   const [loading, setLoading] = useState<boolean>(false);
 
   const uploadHanlder = async () => {
+    if (!client) return;
     try {
       setLoading(true);
       if (uploadedFiles?.length) {
@@ -54,8 +37,9 @@ const FileUpload = ({ user }: FileUploadProps) => {
         uploadedFiles.forEach((f) => {
           formData.append("files", f);
         });
-        await uploadFileApi(user.email, formData);
-        setUploadedFiles([])
+        const files = await uploadFileApi(5, client.email, formData);
+        console.log("files: ", files)
+        setUploadedFiles([]);
       }
     } catch (error) {
       console.log("catch");
@@ -74,8 +58,8 @@ const FileUpload = ({ user }: FileUploadProps) => {
       {!!uploadedFiles?.length && (
         <Box>
           <Divider mt="20" mb="10" />
-          {uploadedFiles?.map((item) => (
-            <Stack w="100%" gap="0" mt="8">
+          {uploadedFiles?.map((item, idx) => (
+            <Stack w="100%" gap="0" mt="8" key={idx}>
               <Text mb={7}>{item.name}</Text>
               <Progress value={100} w="100%" striped animated />
             </Stack>

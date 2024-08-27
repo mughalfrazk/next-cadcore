@@ -9,11 +9,7 @@ const Users = async () => {
 
   return (
     <Box>
-      <Group justify="space-between" mb={10}>
-        <Text>Employees List</Text>
-        <AddUserDialog />
-      </Group>
-
+      <AddUserDialog />
       <UsersTable users={result} />
     </Box>
   );

@@ -35,6 +35,7 @@ type TableProps = {
   data?: unknown[];
   columns?: any;
   page_size?: number;
+  fetching?: boolean;
   onRowClick?: DataTableRowClickHandler<unknown>;
 };
 
@@ -42,6 +43,7 @@ const Table = ({
   columns = dummy_columns,
   data = dummy_rows,
   page_size = PAGE_SIZE,
+  fetching = false,
   onRowClick = () => {},
 }: TableProps) => {
   const theme = useMantineTheme();
@@ -56,12 +58,13 @@ const Table = ({
 
   return (
     <DataTable
+      striped
       withTableBorder
       borderRadius={theme.defaultRadius}
-      striped
       highlightOnHover
       records={data}
       columns={columns}
+      fetching={fetching}
       minHeight={170}
       onRowClick={onRowClick}
       // totalRecords={records.length}

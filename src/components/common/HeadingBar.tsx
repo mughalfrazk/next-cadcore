@@ -1,5 +1,4 @@
 import {
-  ButtonProps,
   Group,
   GroupProps,
   Stack,
@@ -11,14 +10,12 @@ import CButton, { CButtonProps } from "../core/CButton";
 type HeadingBarProps = {
   title: string;
   description: string;
-  btnText?: string;
   button?: CButtonProps;
 } & GroupProps;
 
 const HeadingBar = ({
   title,
   description,
-  btnText,
   button,
   ...otherProps
 }: HeadingBarProps) => {
