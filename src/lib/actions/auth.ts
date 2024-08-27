@@ -7,8 +7,6 @@ import { redirect } from 'next/navigation'
 import { createUserSchema, loginSchema, signupSchema } from '@/validators/auth'
 import { getServerActionError } from '@/utils/error'
 import { serverApi } from '../supabase/serverApi'
-import { getRoleByName } from '../supabase/roles'
-import { updateProfileApi } from '../supabase/profiles'
 import { CreateUserFormType, LoginFormType, RegisterFormType } from '../models/Auth'
 
 export async function login(payload: LoginFormType) {

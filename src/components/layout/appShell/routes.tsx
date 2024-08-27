@@ -26,12 +26,12 @@ const routes: RouteItem[] = [
   {
     icon: IconUserFilled,
     label: "Employees",
-    path: "/dashboard/users",
+    path: "/dashboard/user",
   },
   {
     icon: IconBriefcaseFilled,
     label: "Clients",
-    path: "/dashboard/clients",
+    path: "/dashboard/client",
   },
   { icon: IconActivity, label: "Activity", path: "#hello" },
 ];

@@ -2,7 +2,6 @@
 
 import { parseFactory } from "@/utils/parse-factory";
 import { serverApi } from "./serverApi";
-import { getServerActionError } from "@/utils/error";
 import { RoleListSchema, RoleSchema } from "../models/Role";
 
 const RoleListDataParser = parseFactory(RoleListSchema, "RoleListDataParser")

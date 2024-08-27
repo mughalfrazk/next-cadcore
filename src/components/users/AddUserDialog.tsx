@@ -1,9 +1,9 @@
 "use client";
 
+import { Fragment } from "react";
 import { Modal } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { Fragment } from "react";
-import CButton from "@/components/core/CButton";
+
 import AddUserForm from "./AddUserForm";
 import HeadingBar from "../common/HeadingBar";
 
@@ -17,12 +17,9 @@ const AddUserDialog = () => {
       <HeadingBar
         title="Clients"
         description="List of all the clients of Cadcore"
-        btnText="Add New Client"
+        children="Add New Client"
         button={{ size: "lg", children: "Add New User", onClick: open }}
       />
-      {/* <CButton size="md" onClick={open}>
-        Add New User
-      </CButton> */}
     </Fragment>
   );
 };

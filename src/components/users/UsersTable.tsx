@@ -1,11 +1,10 @@
 "use client";
 
 import { Badge } from "@mantine/core";
-import { usePathname, redirect, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
-import { ProfileListModel, ProfileModel } from "@/lib/models/Profile";
 import Table from "@/components/common/Table";
+import { ProfileListModel, ProfileModel } from "@/lib/models/Profile";
 
 type UsersTableProps = {
   users: ProfileListModel;
@@ -18,10 +17,6 @@ const UsersTable = ({ users }: UsersTableProps) => {
   const getRoleColor = (role: string) => {
     return role === "employee" ? "blue" : role === "client" ? "lime.7" : "";
   };
-
-  useEffect(() => {
-    console.log("pathname: ", pathname);
-  }, []);
 
   const columns = [
     {

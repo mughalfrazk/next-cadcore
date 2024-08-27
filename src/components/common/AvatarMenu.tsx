@@ -10,9 +10,7 @@ import { createClient } from "@/utils/supabase/client";
 import { Session } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
-type AvatarMenuProps = {};
-
-const AvatarMenu = (props: AvatarMenuProps) => {
+const AvatarMenu = () => {
   const z = useZIndex();
   const router = useRouter();
   const [user, setUser] = useState<Session>();
@@ -53,7 +51,7 @@ const AvatarMenu = (props: AvatarMenuProps) => {
         />
       </Menu.Target>
 
-      <Menu.Dropdown>
+      <Menu.Dropdown aria-hidden="false">
         <Menu.Label>
           <Text fw={700} c="black">
             {user?.user.user_metadata.first_name}{" "}

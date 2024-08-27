@@ -11,9 +11,7 @@ export default async function Home() {
 
   return (
     <main className={classes.main}>
-      <PublicHeader
-        user={data?.user}
-      />
+      <PublicHeader user={data?.user} />
       <Box pt={60}>
         {/* <Slider /> */}
         <h1>Hello Homepage</h1>

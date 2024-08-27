@@ -1,4 +1,14 @@
+import { FileWithPath } from "@mantine/dropzone";
 import { z } from "zod"
+
+type FileFormFields = "files";
+export interface FileFormDataPayload extends FormData {
+  append(
+    name: FileFormFields,
+    value: string | Blob | FileWithPath[],
+    fileName?: string
+  ): void;
+}
 
 export const MetadataSchema = z.object({
   eTag: z.string(),
