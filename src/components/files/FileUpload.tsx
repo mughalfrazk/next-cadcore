@@ -22,9 +22,10 @@ import OrangeDocuemntIcon from "../icons/OrangeDocuemntIcon";
 
 type FileUploadProps = {
   client: ProfileModel;
+  projectId: number
 };
 
-const FileUpload = ({ client }: FileUploadProps) => {
+const FileUpload = ({ client, projectId }: FileUploadProps) => {
   const [uploadedFiles, setUploadedFiles] = useState<FileWithPath[]>();
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -37,8 +38,7 @@ const FileUpload = ({ client }: FileUploadProps) => {
         uploadedFiles.forEach((f) => {
           formData.append("files", f);
         });
-        const files = await uploadFileApi(5, client.email, formData);
-        console.log("files: ", files)
+        await uploadFileApi(projectId, client.email, formData);
         setUploadedFiles([]);
       }
     } catch (error) {

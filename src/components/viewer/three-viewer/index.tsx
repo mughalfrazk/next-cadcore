@@ -1,17 +1,11 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-import * as THREE from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
-import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
-import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
-import { KTXLoader } from "three-stdlib";
+import { useContext, useEffect } from "react";
 import JSZip from "jszip";
 
-import { getFileDetailByPathApi } from "@/lib/supabase/client/files";
+import { getFileDetailByPathApi } from "@/lib/supabase/client/storage";
 import { isGlb, isGltf, isZip } from "@/utils/isExtension";
-import { ThreeConfigModel } from "@/lib/models/Three";
-import Result from "./CanvasWrapper";
+
 import { ViewerContext } from "@/context/viewer-context";
 import CanvasWrapper from "./CanvasWrapper";
 

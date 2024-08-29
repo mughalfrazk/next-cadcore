@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { ProjectStatusSchema } from "./ProjectStatus";
+import { ProjectFileListSchema } from "./ProjectFile";
 
 export type CreateProjectFormType = {
   name: string;
@@ -15,7 +16,7 @@ export type ProjectRequestModel = {
   created_by: string;
 }
 
-export const ProjectSchema = z.object({
+export const BaseProjectSchema = z.object({
   client_id: z.string(),
   created_at: z.string(),
   created_by: z.string(),
@@ -23,10 +24,23 @@ export const ProjectSchema = z.object({
   id: z.number(),
   name: z.string(),
   status_id: z.number(),
-  project_status: ProjectStatusSchema
+  project_status: ProjectStatusSchema,
 })
+
+export const ProjectFilesIds = z.object({
+  project_file: z.array(z.object({
+    id: z.number()
+  }))
+})
+
+export const ProjectSchema = BaseProjectSchema.merge(ProjectFilesIds)
+
+export const ProjectWithFilesSchema = z.object({
+  project_file: ProjectFileListSchema
+}).merge(BaseProjectSchema)
 
 export const ProjectListSchema = z.array(ProjectSchema)
 
 export type ProjectModel = z.infer<typeof ProjectSchema>
+export type ProjectWithFilesModel = z.infer<typeof ProjectWithFilesSchema>
 export type ProjectListModel = z.infer<typeof ProjectListSchema>
