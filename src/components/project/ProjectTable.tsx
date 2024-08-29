@@ -45,6 +45,13 @@ const ProjectTable = ({ clientId }: ProjectTableProps) => {
       },
     },
     {
+      title: "No. of files",
+      accessor: "project_file",
+      render: ({ project_file }: ProjectModel) => {
+        return project_file.length;
+      },
+    },
+    {
       accessor: "created_at",
       textAlign: "right",
       render: ({ created_at }: ProjectModel) => {
@@ -59,7 +66,6 @@ const ProjectTable = ({ clientId }: ProjectTableProps) => {
 
   const getProjectList = async () => {
     const data = await getProjectListByClientApi(clientId);
-    console.log(data);
     setProjects(data);
   };
 
@@ -68,7 +74,11 @@ const ProjectTable = ({ clientId }: ProjectTableProps) => {
   }, [clientId]);
 
   return (
-    <Table columns={columns} data={projects}  onRowClick={goToDetailPage} />
+    <Table
+      columns={columns}
+      data={projects}
+      onRowClick={goToDetailPage}
+    />
   );
 };
 

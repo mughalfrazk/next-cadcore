@@ -1,16 +1,15 @@
 "use client";
 
 import {
-  Group,
-  rem,
   Tree,
   TreeNodeData,
   RenderTreeNodePayload,
 } from "@mantine/core";
 import classes from "./Tree.module.css";
 import { ReactNode } from "react";
+import { useClientContext } from "@/context/client-context";
 
-export const data: TreeNodeData[] = [
+export const dummy_data: TreeNodeData[] = [
   {
     label: "src",
     value: "src",
@@ -99,10 +98,10 @@ export const data: TreeNodeData[] = [
 ];
 
 const FileStructure = ({
-  data,
+  data = dummy_data,
   renderNode
 }: {
-  data: TreeNodeData[];
+  data?: TreeNodeData[];
   renderNode: (payload: RenderTreeNodePayload) => ReactNode;
 }) => {
   const Leaf = renderNode

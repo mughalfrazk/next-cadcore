@@ -5,12 +5,12 @@ import UsersTable from "@/components/users/UsersTable";
 import { getClientListApi } from "@/lib/supabase/profiles";
 
 const Users = async () => {
-  const result = await getClientListApi();
+  const clients = await getClientListApi();
 
   return (
     <Box>
       <AddUserDialog />
-      <UsersTable users={result} />
+      <UsersTable users={clients} />
     </Box>
   );
 };
