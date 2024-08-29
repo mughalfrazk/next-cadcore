@@ -13,26 +13,20 @@ import {
 import { createProjectSchema } from "@/validators/project";
 import { clientApi } from "@/lib/supabase/client/clientApi";
 import { createNewProjectApi } from "@/lib/supabase/project";
-import { ProfileModel } from "@/lib/models/Profile";
+import { useClientContext } from "@/context/client-context";
 
-const AddProjectForm = ({
-  client,
-  closeModal,
-}: {
-  client: ProfileModel;
-  closeModal: () => void;
-}) => {
+const AddProjectForm = ({ closeModal }: { closeModal: () => void }) => {
+  const { client } = useClientContext();
   const [loading, setLoading] = useState(false);
 
-  const { onSubmit, getInputProps } =
-    useForm<CreateProjectFormType>({
-      mode: "uncontrolled",
-      initialValues: {
-        name: "",
-        description: "",
-      },
-      validate: zodResolver(createProjectSchema),
-    });
+  const { onSubmit, getInputProps } = useForm<CreateProjectFormType>({
+    mode: "uncontrolled",
+    initialValues: {
+      name: "",
+      description: "",
+    },
+    validate: zodResolver(createProjectSchema),
+  });
 
   const createProject = async (values: CreateProjectFormType) => {
     try {

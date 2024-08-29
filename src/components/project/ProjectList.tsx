@@ -6,24 +6,24 @@ import { Modal } from "@mantine/core";
 
 import HeadingBar from "../common/HeadingBar";
 import AddProjectForm from "./AddProjectForm";
-import { ProfileModel } from "@/lib/models/Profile";
 import ProjectTable from "./ProjectTable";
+import { useClientContext } from "@/context/client-context";
 
-type ProjectListProps = {
-  client: ProfileModel;
-};
-
-const ProjectList = ({ client }: ProjectListProps) => {
+const ProjectList = () => {
+  const { client } = useClientContext()
   const [opened, { open, close }] = useDisclosure(false);
+
+  if (!client) return 
+
   return (
     <Fragment>
       <Modal opened={opened} onClose={close} title="Add New Project">
-        <AddProjectForm client={client} closeModal={close} />
+        <AddProjectForm closeModal={close} />
       </Modal>
       <HeadingBar
         mt={30}
-        title="Project Files"
-        description="List of all the project files of the client."
+        title="Project List"
+        description="List of all the project of the client."
         button={{ children: "Create new project", onClick: open }}
       />
       <ProjectTable clientId={client.id} />
