@@ -7,10 +7,13 @@ import { Modal } from "@mantine/core";
 import HeadingBar from "../common/HeadingBar";
 import AddProjectForm from "./AddProjectForm";
 import ProjectTable from "./ProjectTable";
-import { useClientContext } from "@/context/client-context";
+import { ProfileModel } from "@/lib/models/Profile";
 
-const ProjectList = () => {
-  const { client } = useClientContext()
+type ProjectListProps = {
+  client: ProfileModel
+}
+
+const ProjectList = ({ client }: ProjectListProps) => {
   const [opened, { open, close }] = useDisclosure(false);
 
   if (!client) return 
@@ -21,7 +24,6 @@ const ProjectList = () => {
         <AddProjectForm closeModal={close} />
       </Modal>
       <HeadingBar
-        mt={30}
         title="Project List"
         description="List of all the project of the client."
         button={{ children: "Create new project", onClick: open }}
