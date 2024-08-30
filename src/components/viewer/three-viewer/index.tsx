@@ -36,7 +36,7 @@ const ThreeViewer = ({ modelPath }: ThreeViewerProps) => {
       }
 
       const filePath = Array.from(buffers.keys()).find(
-        (path) => isGlb(path) || isGltf(path)
+        (path) => isGlb(path as string) || isGltf(path as string)
       ) as string;
 
       setBuffers(buffers);
