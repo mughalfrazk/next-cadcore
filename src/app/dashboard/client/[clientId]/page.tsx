@@ -5,11 +5,7 @@ import { Suspense } from "react";
 const UserDetail = async ({ params }: { params: { clientId: string } }) => {
   const client = await getProfileByIdApi(params.clientId);
 
-  return (
-    <Suspense fallback={<h1>Loading...</h1>}>
-      <ClientPage client={client} />
-    </Suspense>
-  );
+  return <ClientPage client={client} />;
 };
 
 export default UserDetail;

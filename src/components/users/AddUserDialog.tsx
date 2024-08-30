@@ -17,7 +17,6 @@ const AddUserDialog = () => {
       <HeadingBar
         title="Clients"
         description="List of all the clients of Cadcore"
-        children="Add New Client"
         button={{ size: "lg", children: "Add New User", onClick: open }}
       />
     </Fragment>
