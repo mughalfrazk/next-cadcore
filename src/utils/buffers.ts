@@ -7,7 +7,7 @@ export const loadFileAsArrayBuffer = (file: Blob) =>
     reader.readAsArrayBuffer(file)
   })
 
-export const stringToArrayBuffer = (text, encoding = 'UTF-8') => {
+export const stringToArrayBuffer = (text: string, encoding = 'UTF-8') => {
   return new Promise((resolve, reject) => {
     const blob = new Blob([text], { type: `text/plain;charset=${encoding}` })
     const reader = new FileReader()
