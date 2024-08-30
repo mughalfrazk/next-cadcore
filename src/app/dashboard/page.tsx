@@ -1,14 +1,11 @@
 import { Box, Text } from "@mantine/core";
 
-import withAuth, { AuthHocProps } from "@/components/hoc/with-auth";
-
-const Dashboard = ({ me }: AuthHocProps) => {
+const Dashboard = () => {
   return (
     <Box>
-      <Text>Hello {me.email}</Text>
+      <Text>Hello me.profile.email</Text>
     </Box>
   );
 };
 
-export default withAuth(Dashboard);
-8;
+export default Dashboard;

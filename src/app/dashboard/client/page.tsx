@@ -1,4 +1,4 @@
-import { Box, Group, Text } from "@mantine/core";
+import { Box } from "@mantine/core";
 
 import AddUserDialog from "@/components/users/AddUserDialog";
 import UsersTable from "@/components/users/UsersTable";

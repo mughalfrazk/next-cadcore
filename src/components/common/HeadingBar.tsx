@@ -1,10 +1,4 @@
-import {
-  Group,
-  GroupProps,
-  Stack,
-  Text,
-  Title,
-} from "@mantine/core";
+import { Group, GroupProps, Stack, Text, Title } from "@mantine/core";
 import CButton, { CButtonProps } from "../core/CButton";
 
 type HeadingBarProps = {
@@ -23,7 +17,7 @@ const HeadingBar = ({
     <Group
       justify="space-between"
       align="center"
-      mt={10}
+      mt={4}
       mb={15}
       mx={10}
       {...otherProps}

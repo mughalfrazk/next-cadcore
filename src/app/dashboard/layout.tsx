@@ -2,12 +2,9 @@ import { Box } from "@mantine/core";
 
 import ViewerProvider from "@/context/viewer-context";
 import ConditionalLayout from "./conditional-layout";
+import withAuth from "@/components/hoc/with-auth";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main>
       <ConditionalLayout>
@@ -17,4 +14,6 @@ export default function RootLayout({
       </ConditionalLayout>
     </main>
   );
-}
+};
+
+export default withAuth(RootLayout);
