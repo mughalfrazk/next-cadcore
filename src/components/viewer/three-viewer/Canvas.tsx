@@ -33,10 +33,10 @@ const Canvas = ({
       <ambientLight intensity={0.25} />
       <Suspense fallback={null}>
         <Stage
-          controls={ref as any}
+          // controls={ref as any}
           preset={preset}
           intensity={intensity}
-          contactShadow={contactShadow}
+          castShadow={contactShadow}
           shadows
           adjustCamera
           environment={environment}
