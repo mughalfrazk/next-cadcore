@@ -31,7 +31,7 @@ const FileLeaf = ({ node }: RenderTreeNodePayload) => {
         <IconCube
           stroke={2}
           style={{ width: rem(20), height: rem(20) }}
-          color="var(--mantine-color-primary-9)"
+          color="var(--mantine-color-primary-7)"
         />
         {node.label}{" "}
         <Badge

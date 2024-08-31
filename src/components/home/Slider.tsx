@@ -1,18 +1,27 @@
-import styles from "./Slider.module.css";
+import { conthraxFont } from "@/styles/fonts";
+import classes from "./Slider.module.css";
+import { Box, rem, Text } from "@mantine/core";
 
 const Slider = () => {
   return (
-    <section className={styles.sliderBg}>
-      <p className={`${styles.heading} ${styles.line1}`}>
-        Architecture should
-        <br />
-        speak of its time and place,
-      </p>
-      <p className={`${styles.heading} ${styles.line2}`}>
+    <Box
+      ta={"center"}
+      className={`${conthraxFont.className} ${classes.sliderBg}`}
+      pt={200}
+    >
+      <Text c="var(--mantine-color-white)" style={{ fontSize: rem(30) }}>
+        Architecture should speak of its time and place,
+      </Text>
+      <Text
+        style={{ fontSize: rem(45) }}
+        c="var(--mantine-color-primary-9)"
+      >
         But yearn for timelessness
-      </p>
-      <p className={styles.subHeading}>- Frank Gehry</p>
-    </section>
+      </Text>
+      <Text ta={"right"} c="var(--mantine-color-white)">
+        - Frank Gehry
+      </Text>
+    </Box>
   );
 };
 

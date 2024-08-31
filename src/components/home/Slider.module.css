@@ -5,11 +5,9 @@
   padding: 5rem 8rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
 .heading {
-  font-family: "Conthrax SemiBold";
   letter-spacing: 1px;
   text-align: left;
   /* text-shadow: 3px 3px 1px #00000010; */
@@ -24,20 +22,19 @@
   color: var(--mantine-color-white);
   font-size: 2.3rem;
   text-shadow: 3px 3px 1px #00000000;
-  background-color: var(--mantine-color-primary-9);
+  background-color: var(--mantine-color-primary-7);
   width: max-content;
   padding: 0 1rem;
   border-radius: 0.7rem;
-  /* box-shadow: inset 0px -20px 0px 0px var(--mantine-color-primary-9); */
+  /* box-shadow: inset 0px -20px 0px 0px var(--mantine-color-primary-7); */
 }
 
 .subHeading {
   font-size: 1.3rem;
   letter-spacing: 1px;
-  font-family: "Conthrax SemiBold";
-  /* background-color: var(--mantine-color-primary-9); */
+  /* background-color: var(--mantine-color-primary-7); */
   color: var(--mantine-color-secondary-);
   padding: 0.4rem 1rem;
   margin-top: 1rem;
-  /* background-color: var(--mantine-color-primary-9); */
+  /* background-color: var(--mantine-color-primary-7); */
 }

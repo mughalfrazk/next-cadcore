@@ -1,6 +1,6 @@
 .root {
   &[data-variant='filled'] {
-    background-color: var(--mantine-color-primary-9);
+    background-color: var(--mantine-color-primary-7);
 
     path {
       stroke: var(--mantine-color-white);
@@ -19,12 +19,12 @@
       cursor: default;
 
       path {
-        stroke: var(--mantine-color-primary-9);
+        stroke: var(--mantine-color-primary-7);
         opacity: 0.3;
       }
 
       p {
-        color: var(--mantine-color-primary-9) !important;
+        color: var(--mantine-color-primary-7) !important;
         opacity: 0.3;
       }
     }
@@ -42,19 +42,19 @@
       cursor: default;
 
       path {
-        stroke: var(--mantine-color-primary-9);
+        stroke: var(--mantine-color-primary-7);
         opacity: 0.3;
       }
 
       p {
-        color: var(--mantine-color-primary-9) !important;
+        color: var(--mantine-color-primary-7) !important;
         opacity: 0.3;
       }
     }
   }
 
   &[data-variant='outline'] {
-    border-color: var(--mantine-color-primary-9);
+    border-color: var(--mantine-color-primary-7);
 
     &:hover {
       background-color: var(--mantine-white);
@@ -70,17 +70,17 @@
     }
 
     &:disabled {
-      border-color: var(--mantine-color-primary-9);
+      border-color: var(--mantine-color-primary-7);
       background-color: var(--mantine-white);
       opacity: 0.32;
       cursor: default;
 
       path {
-        stroke: var(--mantine-color-primary-9);
+        stroke: var(--mantine-color-primary-7);
       }
 
       p {
-        color: var(--mantine-color-primary-9) !important;
+        color: var(--mantine-color-primary-7) !important;
       }
     }
   }
@@ -96,11 +96,11 @@
       cursor: default;
 
       path {
-        stroke: var(--mantine-color-primary-9);
+        stroke: var(--mantine-color-primary-7);
       }
 
       p {
-        color: var(--mantine-color-primary-9) !important;
+        color: var(--mantine-color-primary-7) !important;
       }
     }
   }
