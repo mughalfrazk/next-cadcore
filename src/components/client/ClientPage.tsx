@@ -14,7 +14,6 @@ const ClientPage = ({ client }: { client: ProfileModel }) => {
   const { setClient } = useClientContext();
 
   useEffect(() => {
-    console.log(client)
     setClient(client);
   }, [client]);
 
@@ -37,7 +36,7 @@ const ClientPage = ({ client }: { client: ProfileModel }) => {
                 <IconFile3d
                   style={{ width: rem(50), height: rem(50) }}
                   stroke={1.3}
-                  color="var(--mantine-color-primary-9)"
+                  color="var(--mantine-color-primary-7)"
                 />
                 <Stack
                   gap={0}

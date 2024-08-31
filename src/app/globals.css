@@ -1,3 +1,9 @@
+@font-face {
+  font-family: 'Conthrax SemiBold';
+  src: local('Conthrax SemiBold');
+  src: url('/fonts/ConthraxSb-Regular.woff2') format('woff2');
+}
+
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
