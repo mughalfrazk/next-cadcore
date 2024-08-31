@@ -11,10 +11,9 @@ const ConditionalLayout = ({ children }: ConditionalLayoutProps) => {
   const pathSegments = usePathname().split("/");
 
   if (
-    pathSegments.length === 6 &&
+    pathSegments.length === 3 &&
     pathSegments[1] === "dashboard" &&
-    pathSegments[2] === "clients" &&
-    pathSegments[4] === "viewer"
+    pathSegments[2] === "viewer"
   ) {
     return children;
   }

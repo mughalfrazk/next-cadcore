@@ -5,6 +5,7 @@ import React, {
   useState,
   SetStateAction,
   Dispatch,
+  useContext,
 } from "react";
 import * as THREE from "three";
 import { KTXLoader } from "three-stdlib";
@@ -129,4 +130,5 @@ const ViewerProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+export const useViewerContext = () => useContext(ViewerContext)
 export default ViewerProvider;

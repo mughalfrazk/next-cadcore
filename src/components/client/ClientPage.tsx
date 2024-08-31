@@ -14,6 +14,7 @@ const ClientPage = ({ client }: { client: ProfileModel }) => {
   const { setClient } = useClientContext();
 
   useEffect(() => {
+    console.log(client)
     setClient(client);
   }, [client]);
 

@@ -21,7 +21,6 @@ import Header from "./Header";
 const CanvasWrapper = () => {
   const { scene, generateScene } = useContext(ViewerContext);
   const z = useZIndex();
-  const router = useRouter();
   const { ref, toggle, fullscreen } = useFullscreen();
 
   const config: ThreeConfigModel = {
