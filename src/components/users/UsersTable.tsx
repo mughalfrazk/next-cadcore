@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 import Table from "@/components/common/Table";
 import { ProfileListModel, ProfileModel } from "@/lib/models/Profile";
+import { getRoleColor } from "@/utils/function";
 
 type UsersTableProps = {
   users: ProfileListModel;
@@ -13,10 +14,6 @@ type UsersTableProps = {
 const UsersTable = ({ users }: UsersTableProps) => {
   const pathname = usePathname();
   const router = useRouter();
-
-  const getRoleColor = (role: string) => {
-    return role === "employee" ? "blue" : role === "client" ? "lime.7" : "";
-  };
 
   const columns = [
     {

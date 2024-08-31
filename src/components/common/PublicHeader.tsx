@@ -27,15 +27,15 @@ const PublicHeader = ({ user }: HeaderProps) => {
           right: 0,
           position: "fixed",
           padding: "var(--mantine-spacing-xs)",
-          height: rem(60),
+          height: rem(80),
           transform: `translate3d(0, ${pinned ? 0 : rem(-110)}, 0)`,
           transition: "transform 400ms ease",
-          backgroundColor: "white",
+          // backgroundColor: "white",
           zIndex: z.docked,
         }}
       >
         <Group px={{ md: "15rem", sm: "6rem" }} justify="space-between">
-          <CadcoreLogo h={42} />
+          <CadcoreLogo h={60} />
           {user ? (
             <AvatarMenu />
           ) : (

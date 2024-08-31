@@ -47,7 +47,7 @@ const AvatarMenu = () => {
       <Menu.Target>
         <Avatar
           name={`${user?.user.user_metadata.first_name} ${user?.user.user_metadata.last_name}`}
-          color="primary"
+          color="var(--mantine-color-primary-9)"
         />
       </Menu.Target>
 

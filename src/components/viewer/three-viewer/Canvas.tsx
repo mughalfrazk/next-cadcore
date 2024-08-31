@@ -36,7 +36,7 @@ const Canvas = ({
           // controls={ref as any}
           preset={preset}
           intensity={intensity}
-          // contactShadow={contactShadow}
+          castShadow={contactShadow}
           shadows
           adjustCamera
           environment={environment}
