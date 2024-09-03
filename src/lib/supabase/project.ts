@@ -6,7 +6,6 @@ import { getProjectStatusByName } from "./project_status"
 import { serverApi } from "./serverApi"
 import { revalidatePath } from "next/cache"
 import { TreeNodeData } from "@mantine/core"
-import { ProjectFileModel } from "../models/ProjectFile"
 
 const ProjectListDataParser = parseFactory(ProjectListSchema, "ProjectListDataParser")
 const ProjectWithFilesDataParser = parseFactory(ProjectWithFilesSchema, "ProjectWithFilesDataParser")

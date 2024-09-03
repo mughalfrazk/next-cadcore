@@ -3,9 +3,11 @@ import "@mantine/notifications/styles.css";
 import "mantine-datatable/styles.layer.css";
 import "@mantine/dropzone/styles.css";
 
-import { ColorSchemeScript, MantineProvider } from "@mantine/core";
-import { cadcoreTheme } from "@/styles/cadcore-theme";
 import { Notifications } from "@mantine/notifications";
+import { ColorSchemeScript, MantineProvider } from "@mantine/core";
+
+import { cadcoreTheme } from "@/styles/cadcore-theme";
+import GlobalSWRConfig from "@/components/common/GlobalSWRConfig";
 
 export const metadata = {
   title: "Cadcore",
@@ -31,8 +33,10 @@ export default function RootLayout({
       </head>
       <body>
         <MantineProvider defaultColorScheme="light" theme={cadcoreTheme}>
-          <Notifications />
-          {children}
+          <GlobalSWRConfig>
+            <Notifications />
+            {children}
+          </GlobalSWRConfig>
         </MantineProvider>
       </body>
     </html>

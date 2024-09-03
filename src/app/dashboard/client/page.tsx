@@ -9,7 +9,7 @@ const Users = async () => {
 
   return (
     <Box>
-      <AddUserDialog />
+      <AddUserDialog title="Clients" description="List of all the cadcore clients" />
       <UsersTable users={clients} />
     </Box>
   );

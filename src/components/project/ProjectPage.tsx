@@ -11,13 +11,12 @@ import {
 } from "@mantine/core";
 import { IconPresentation } from "@tabler/icons-react";
 
+import Tree from "@/components/common/Tree";
 import HeadingBar from "@/components/common/HeadingBar";
-import FileStructure from "@/components/common/Tree";
 import FileUpload from "@/components/files/FileUpload";
 import FileLeaf from "@/components/files/FileLeaf";
 import { ProfileModel } from "@/lib/models/Profile";
 import { ProjectWithFilesModel } from "@/lib/models/Project";
-import { useClientContext } from "@/context/client-context";
 
 const ProjectPage = ({
   client,
@@ -28,12 +27,6 @@ const ProjectPage = ({
   project: ProjectWithFilesModel;
   fileTreeData: TreeNodeData[];
 }) => {
-  const { setClient } = useClientContext();
-
-  useEffect(() => {
-    if (client) setClient(client);
-  }, [client]);
-
   return (
     <Fragment>
       <Group mb={20}>
@@ -51,7 +44,7 @@ const ProjectPage = ({
         title="Project Files"
         description="List of all the files in the project."
       />
-      <FileStructure data={fileTreeData} renderNode={FileLeaf} />
+      <Tree data={fileTreeData} renderNode={FileLeaf} />
     </Fragment>
   );
 };

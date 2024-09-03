@@ -33,6 +33,11 @@ export const ProjectFilesIds = z.object({
   }))
 })
 
+export const ProjectIdNameSchema = z.object({
+  id: z.number(),
+  name: z.string()
+})
+
 export const ProjectSchema = BaseProjectSchema.merge(ProjectFilesIds)
 
 export const ProjectWithFilesSchema = z.object({
@@ -44,3 +49,4 @@ export const ProjectListSchema = z.array(ProjectSchema)
 export type ProjectModel = z.infer<typeof ProjectSchema>
 export type ProjectWithFilesModel = z.infer<typeof ProjectWithFilesSchema>
 export type ProjectListModel = z.infer<typeof ProjectListSchema>
+export type ProjectIdNameModel = z.infer<typeof ProjectIdNameSchema>

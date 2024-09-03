@@ -7,7 +7,12 @@ import { useDisclosure } from "@mantine/hooks";
 import AddUserForm from "./AddUserForm";
 import HeadingBar from "../common/HeadingBar";
 
-const AddUserDialog = () => {
+type AddUserDialogProps = {
+  title: string;
+  description: string;
+};
+
+const AddUserDialog = ({ title, description }: AddUserDialogProps) => {
   const [opened, { open, close }] = useDisclosure(false);
   return (
     <Fragment>
@@ -15,8 +20,8 @@ const AddUserDialog = () => {
         <AddUserForm closeModal={close} />
       </Modal>
       <HeadingBar
-        title="Clients"
-        description="List of all the clients of Cadcore"
+        title={title}
+        description={description}
         button={{ size: "lg", children: "Add New User", onClick: open }}
       />
     </Fragment>

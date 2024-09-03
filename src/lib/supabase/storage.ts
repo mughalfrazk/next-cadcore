@@ -37,9 +37,9 @@ const uploadFileApi = async (project_id: number, folder_name: string, payload: F
   if (!file_status) throw new Error("File status exception.")
 
   const files = payload.getAll("files") as FileWithPath[]
-  const promises = files.map(file => {
-    return saveFileInStorageAndDatabase(project_id, file_status.id, folder_name, file)
-  })
+  const promises = files.map(file =>
+    saveFileInStorageAndDatabase(project_id, file_status.id, folder_name, file)
+  )
 
   revalidatePath("dashboard/clients", "layout")
   return await Promise.all(promises)
