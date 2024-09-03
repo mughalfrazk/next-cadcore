@@ -20,8 +20,15 @@ export const ProfileSchema = z.object({
   role_id: z.number()
 })
 
+export const ProfileIdNameSchema = z.object({
+  id: z.string(),
+  first_name: z.string().nullish(),
+  last_name: z.string().nullish(),
+})
+
 export const ProfileListSchema = z.array(ProfileSchema)
 
 export type ProfileModel = z.infer<typeof ProfileSchema>
 export type ProfileListModel = z.infer<typeof ProfileListSchema>
+export type ProfileIdNameModel = z.infer<typeof ProfileIdNameSchema>
 

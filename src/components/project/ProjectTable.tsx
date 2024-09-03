@@ -25,7 +25,7 @@ const ProjectTable = ({ clientId }: ProjectTableProps) => {
       : status === "in_review"
       ? "lime.8"
       : status === "completed"
-      ? "primary.9"
+      ? "var(--mantine-color-primary-7)"
       : "";
   };
 

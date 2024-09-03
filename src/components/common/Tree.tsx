@@ -1,13 +1,12 @@
 "use client";
 
+import { ReactNode } from "react";
 import {
-  Tree,
+  Tree as MantineTree,
   TreeNodeData,
   RenderTreeNodePayload,
 } from "@mantine/core";
 import classes from "./Tree.module.css";
-import { ReactNode } from "react";
-import { useClientContext } from "@/context/client-context";
 
 export const dummy_data: TreeNodeData[] = [
   {
@@ -97,17 +96,21 @@ export const dummy_data: TreeNodeData[] = [
   },
 ];
 
-const FileStructure = ({
+const LeafItem = ({ node }: RenderTreeNodePayload) => {
+  return node.label;
+};
+
+const Tree = ({
   data = dummy_data,
-  renderNode
+  renderNode = LeafItem,
 }: {
   data?: TreeNodeData[];
-  renderNode: (payload: RenderTreeNodePayload) => ReactNode;
+  renderNode?: (payload: RenderTreeNodePayload) => ReactNode;
 }) => {
-  const Leaf = renderNode
+  const Leaf = renderNode;
 
   return (
-    <Tree
+    <MantineTree
       data={data}
       mb={12}
       className={classes.tree}
@@ -120,4 +123,4 @@ const FileStructure = ({
   );
 };
 
-export default FileStructure;
+export default Tree;
