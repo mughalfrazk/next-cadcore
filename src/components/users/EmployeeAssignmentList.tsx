@@ -1,17 +1,17 @@
 "use client";
 
-import { Fragment, MouseEvent } from "react";
+import { Fragment } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { Checkbox, Group, Modal } from "@mantine/core";
+import { Modal } from "@mantine/core";
+import sortBy from "lodash/sortBy";
 
 import { useClientContext } from "@/context/client-context";
 import { useEmployeeAssignmentByEmployeeQuery } from "@/hooks/query/employee-assignment";
 import { EmployeeAssignmentTableData } from "@/lib/models/EmployeeAssignment";
+import EmployeeAssignmentActionCell from "./EmployeeAssignmentActionCell";
 import EmployeeAssignmentForm from "./EmployeeAssignmentForm";
 import HeadingBar from "../common/HeadingBar";
 import Table from "../common/Table";
-import EmployeeAssignmentActionCell from "./EmployeeAssignmentActionCell";
-import { DataTableRowClickHandler } from "mantine-datatable";
 
 const columns = [
   {
@@ -53,7 +53,7 @@ const EmployeeAssignmentList = ({}: EmployeeAssignmentListProps) => {
       />
       <Table
         columns={columns}
-        data={data}
+        data={sortBy(data, (record) => record.project.name)}
         fetching={isLoading}
         onRowClick={({ event }) => {
           event.stopPropagation();

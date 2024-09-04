@@ -94,7 +94,7 @@ const updateEmpoyeeAssignmentApi = async (payload: UpdateEmployeeAssignmentReque
   console.log("result: ", result.data)
   console.log("error: ", result.error)
 
-  revalidatePath("dashboard/user", "layout")
+  revalidatePath(`dashboard/user/${payload.employee_id}`, "page")
 }
 
 export { createEmployeeAssignmentApi, getEmployeeAssignmentByEmployeeApi, updateEmpoyeeAssignmentApi }
