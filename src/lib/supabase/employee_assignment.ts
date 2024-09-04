@@ -1,7 +1,7 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { EmployeeAssignmentListSchema, EmployeeAssignmentRequestModel, EmployeeAssignmentTableData } from "../models/EmployeeAssignment"
+import { EmployeeAssignmentListSchema, CreateEmployeeAssignmentRequestModel, EmployeeAssignmentTableData, UpdateEmployeeAssignmentRequestModel } from "../models/EmployeeAssignment"
 import { ServerResponse } from "@/utils/server-response"
 import { serverApi } from "./serverApi"
 import { getProjectListByClientApi } from "./project"
@@ -9,7 +9,7 @@ import { parseFactory } from "@/utils/parse-factory"
 
 const EmployeeAssignmentListDataParser = parseFactory(EmployeeAssignmentListSchema, "EmployeeAssignmentListDataParser")
 
-const isRecordDuplicating = async (payload: EmployeeAssignmentRequestModel) => {
+const isRecordDuplicating = async (payload: CreateEmployeeAssignmentRequestModel) => {
   const checkingRepitition = await serverApi()
     .from("employee_assignment")
     .select("*")
@@ -22,17 +22,17 @@ const isRecordDuplicating = async (payload: EmployeeAssignmentRequestModel) => {
   return false
 }
 
-const createEmployeeAssignmentApi = async (payload: EmployeeAssignmentRequestModel) => {
+const createEmployeeAssignmentApi = async (payload: CreateEmployeeAssignmentRequestModel) => {
   const checkingRepitition = await isRecordDuplicating(payload)
   if (checkingRepitition) return ServerResponse("Error", null, "Bad Request", "Data already exists")
 
   if (payload.project_id) {
-    const { data, error } = await serverApi().from("employee_assignment").insert(payload)
+    const result = await serverApi().from("employee_assignment").insert(payload)
   } else {
     const projects = await getProjectListByClientApi(payload.client_id)
 
     let promises = projects.map(async item => {
-      let projectPayload: EmployeeAssignmentRequestModel = { ...payload, project_id: item.id.toString() }
+      let projectPayload: CreateEmployeeAssignmentRequestModel = { ...payload, project_id: item.id.toString() }
 
       const duplicatedRecord = await isRecordDuplicating(projectPayload)
       if (!duplicatedRecord) return serverApi().from("employee_assignment").insert(projectPayload)
@@ -75,4 +75,26 @@ const getEmployeeAssignmentByEmployeeApi = async (employeeId: string) => {
   return newArray
 }
 
-export { createEmployeeAssignmentApi, getEmployeeAssignmentByEmployeeApi }
+const updateEmpoyeeAssignmentApi = async (payload: UpdateEmployeeAssignmentRequestModel) => {
+  let result;
+  console.log(payload)
+  if (payload.delete) {
+    result = await serverApi().from("employee_assignment")
+      .delete()
+      .eq("employee_id", payload.employee_id)
+      .eq("client_id", payload.client_id)
+      .eq("project_id", payload.project_id)
+      .eq("action_id", payload.action_id)
+  } else {
+    let createPayload = { ...payload }
+    delete createPayload.delete
+    result = await serverApi().from("employee_assignment")
+      .insert(createPayload)
+  }
+  console.log("result: ", result.data)
+  console.log("error: ", result.error)
+
+  revalidatePath("dashboard/user", "layout")
+}
+
+export { createEmployeeAssignmentApi, getEmployeeAssignmentByEmployeeApi, updateEmpoyeeAssignmentApi }

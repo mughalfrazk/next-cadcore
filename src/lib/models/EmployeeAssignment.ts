@@ -3,11 +3,19 @@ import { ActionSchema } from "./Action"
 import { ProfileIdNameSchema } from "./Profile";
 import { ProjectIdNameSchema } from "./Project";
 
-export type EmployeeAssignmentRequestModel = {
+export type CreateEmployeeAssignmentRequestModel = {
   employee_id: string;
   client_id: string;
   project_id?: string | null;
   action_id: string;
+}
+
+export type UpdateEmployeeAssignmentRequestModel = {
+  employee_id: string;
+  client_id: string;
+  project_id: number;
+  action_id: number;
+  delete?: boolean;
 }
 
 export type EmployeeAssignmentTableData = {
