@@ -9,7 +9,7 @@ import { createClient } from "@/utils/supabase/client";
 import { Session } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
-const AvatarMenu = ({ color }: { color: string }) => {
+const AvatarMenu = ({ color }: { color?: string }) => {
   const z = useZIndex();
   const router = useRouter();
   const [user, setUser] = useState<Session>();
