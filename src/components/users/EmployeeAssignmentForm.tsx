@@ -1,8 +1,4 @@
-import {
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useEffect, useRef, useState } from "react";
 import { ComboboxData, Select } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
@@ -13,7 +9,7 @@ import {
 import CButton from "../core/CButton";
 import { useActionListQuery } from "@/hooks/query/action";
 import { createEmployeeAssignmentApi } from "@/lib/supabase/employee_assignment";
-import { EmployeeAssignmentRequestModel } from "@/lib/models/EmployeeAssignment";
+import { CreateEmployeeAssignmentRequestModel } from "@/lib/models/EmployeeAssignment";
 import { useClientContext } from "@/context/client-context";
 
 type EmployeeAssignmentFormProps = {
@@ -29,6 +25,7 @@ const EmployeeAssignmentForm = ({ close }: EmployeeAssignmentFormProps) => {
     []
   );
   const [actionListOptions, setActionListOptions] = useState<ComboboxData>([]);
+  const [loading, setLoading] = useState<boolean>(false)
 
   const { data: clientList } = useClientListQuery();
   const { data: projectList, mutate: mutateProjectList } =
@@ -36,7 +33,7 @@ const EmployeeAssignmentForm = ({ close }: EmployeeAssignmentFormProps) => {
   const { data: actionList } = useActionListQuery();
 
   const { onSubmit, getInputProps, setValues, values } =
-    useForm<EmployeeAssignmentRequestModel>({
+    useForm<CreateEmployeeAssignmentRequestModel>({
       mode: "uncontrolled",
       initialValues: {
         employee_id: client?.id as string,
@@ -47,12 +44,20 @@ const EmployeeAssignmentForm = ({ close }: EmployeeAssignmentFormProps) => {
     });
 
   const createNewAssignment = async (
-    values: EmployeeAssignmentRequestModel
+    values: CreateEmployeeAssignmentRequestModel
   ) => {
-    if (!values.project_id) values.project_id = null;
-    console.log(values);
-    await createEmployeeAssignmentApi(values);
-    close();
+    try {
+      setLoading(true)
+      if (!values.project_id) values.project_id = null;
+      console.log(values);
+      await createEmployeeAssignmentApi(values);
+      close();
+      
+    } catch (error) {
+      
+    } finally {
+      setLoading(false)
+    }
   };
 
   useEffect(() => {
@@ -136,7 +141,7 @@ const EmployeeAssignmentForm = ({ close }: EmployeeAssignmentFormProps) => {
         mt="xl"
         size="lg"
         fullWidth
-        // loading={loading}
+        loading={loading}
       >
         Register
       </CButton>

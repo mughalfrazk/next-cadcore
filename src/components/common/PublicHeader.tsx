@@ -37,7 +37,7 @@ const PublicHeader = ({ user }: HeaderProps) => {
         <Group px={{ md: "15rem", sm: "6rem" }} justify="space-between">
           <CadcoreLogo h={70} />
           {user ? (
-            <AvatarMenu />
+            <AvatarMenu color="white" />
           ) : (
             <Link href="/auth">
               <CButton>Go to Login</CButton>

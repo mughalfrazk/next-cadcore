@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, rem, Avatar, Text } from "@mantine/core";
 import { IconSettings, IconLogout2 } from "@tabler/icons-react";
-import Link from "next/link";
 
 import { constants } from "@/constants";
 import { useZIndex } from "@/hooks/use-z-index";
@@ -10,7 +9,7 @@ import { createClient } from "@/utils/supabase/client";
 import { Session } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
-const AvatarMenu = () => {
+const AvatarMenu = ({ color }: { color?: string }) => {
   const z = useZIndex();
   const router = useRouter();
   const [user, setUser] = useState<Session>();
@@ -47,7 +46,7 @@ const AvatarMenu = () => {
       <Menu.Target>
         <Avatar
           name={`${user?.user.user_metadata.first_name} ${user?.user.user_metadata.last_name}`}
-          color="var(--mantine-color-primary-7)"
+          color={color ?? "var(--mantine-color-primary-7)"}
         />
       </Menu.Target>
 

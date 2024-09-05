@@ -7,7 +7,7 @@ const UserDetail = async ({ params }: { params: { userId: string } }) => {
 
   return (
     <ClientContextWrapper client={client}>
-      <EmployeeAssignmentList />
+      {client.role.name === "employee" ? <EmployeeAssignmentList /> : client.role.name}
     </ClientContextWrapper>
   );
 };

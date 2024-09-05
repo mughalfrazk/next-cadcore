@@ -2,11 +2,13 @@
 
 import { Fragment } from "react";
 import { useDisclosure } from "@mantine/hooks";
-import { Checkbox, Group, Modal } from "@mantine/core";
+import { Modal } from "@mantine/core";
+import sortBy from "lodash/sortBy";
 
 import { useClientContext } from "@/context/client-context";
 import { useEmployeeAssignmentByEmployeeQuery } from "@/hooks/query/employee-assignment";
 import { EmployeeAssignmentTableData } from "@/lib/models/EmployeeAssignment";
+import EmployeeAssignmentActionCell from "./EmployeeAssignmentActionCell";
 import EmployeeAssignmentForm from "./EmployeeAssignmentForm";
 import HeadingBar from "../common/HeadingBar";
 import Table from "../common/Table";
@@ -26,34 +28,7 @@ const columns = [
   {
     accessor: "Actions",
     textAlign: "right",
-    render: ({ action }: EmployeeAssignmentTableData) => {
-      return (
-        action && (
-          <Group justify="flex-end">
-            <Checkbox
-              checked={!!action.find((item) => item.name === "create")}
-              label="Add"
-              onChange={() => {}}
-            />
-            <Checkbox
-              checked={!!action.find((item) => item.name === "read")}
-              label="View"
-              onChange={() => {}}
-            />
-            <Checkbox
-              checked={!!action.find((item) => item.name === "update")}
-              label="Update"
-              onChange={() => {}}
-            />
-            <Checkbox
-              checked={!!action.find((item) => item.name === "delete")}
-              label="Delete"
-              onChange={() => {}}
-            />
-          </Group>
-        )
-      );
-    },
+    render: EmployeeAssignmentActionCell,
   },
 ];
 
@@ -76,7 +51,14 @@ const EmployeeAssignmentList = ({}: EmployeeAssignmentListProps) => {
         description="List of all the clients and projects assigned to this user."
         button={{ children: "Add New Assignment", onClick: open }}
       />
-      <Table columns={columns} data={data} fetching={isLoading} />
+      <Table
+        columns={columns}
+        data={sortBy(data, (record) => record.project.name)}
+        fetching={isLoading}
+        onRowClick={({ event }) => {
+          event.stopPropagation();
+        }}
+      />
     </Fragment>
   );
 };
