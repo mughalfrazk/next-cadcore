@@ -1,8 +1,8 @@
 import { getEmployeeAssignmentByEmployeeApi } from "@/lib/supabase/employee_assignment";
 import { NextRequest, NextResponse } from "next/server";
-// { params }: { params: { employeeId: string } }
 
 export async function GET(request: NextRequest) {
+  // ?employeeId={string}
   const employeeId = request.nextUrl.searchParams.get("employeeId")
 
   if (!!employeeId) {

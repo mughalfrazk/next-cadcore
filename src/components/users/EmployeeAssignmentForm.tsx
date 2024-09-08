@@ -25,7 +25,7 @@ const EmployeeAssignmentForm = ({ close }: EmployeeAssignmentFormProps) => {
     []
   );
   const [actionListOptions, setActionListOptions] = useState<ComboboxData>([]);
-  const [loading, setLoading] = useState<boolean>(false)
+  const [loading, setLoading] = useState<boolean>(false);
 
   const { data: clientList } = useClientListQuery();
   const { data: projectList, mutate: mutateProjectList } =
@@ -42,23 +42,6 @@ const EmployeeAssignmentForm = ({ close }: EmployeeAssignmentFormProps) => {
         action_id: "",
       },
     });
-
-  const createNewAssignment = async (
-    values: CreateEmployeeAssignmentRequestModel
-  ) => {
-    try {
-      setLoading(true)
-      if (!values.project_id) values.project_id = null;
-      console.log(values);
-      await createEmployeeAssignmentApi(values);
-      close();
-      
-    } catch (error) {
-      
-    } finally {
-      setLoading(false)
-    }
-  };
 
   useEffect(() => {
     if (clientList) {
@@ -102,7 +85,20 @@ const EmployeeAssignmentForm = ({ close }: EmployeeAssignmentFormProps) => {
     setValues({ ...values, client_id: value, project_id: "" });
   };
 
-  getInputProps("client_id");
+  const createNewAssignment = async (
+    values: CreateEmployeeAssignmentRequestModel
+  ) => {
+    try {
+      setLoading(true);
+      if (!values.project_id) values.project_id = null;
+      console.log(values);
+      await createEmployeeAssignmentApi(values);
+      close();
+    } catch (error) {
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <form onSubmit={onSubmit(createNewAssignment)}>

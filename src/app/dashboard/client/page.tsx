@@ -3,6 +3,7 @@ import { Box } from "@mantine/core";
 import AddUserDialog from "@/components/users/AddUserDialog";
 import UsersTable from "@/components/users/UsersTable";
 import { getClientListApi } from "@/lib/supabase/profiles";
+import withUser, { UserHocProps } from "@/components/hoc/with-user";
 
 const Users = async () => {
   const clients = await getClientListApi();
