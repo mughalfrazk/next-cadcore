@@ -15,6 +15,8 @@ const ActionLabel = {
   delete: "Delete File",
 };
 
+type ActionLabelKey = keyof typeof ActionLabel
+
 const PermissionCheckbox = ({
   i,
   action,
@@ -45,7 +47,7 @@ const PermissionCheckbox = ({
       <Popover.Target>
         <Checkbox
           checked={!!action.find((j) => j.name === i.name)}
-          label={ActionLabel[i.name]}
+          label={ActionLabel[i.name as ActionLabelKey]}
           onChange={(event: ChangeEvent<HTMLInputElement>) =>
             setPersistedEvent(event)
           }
