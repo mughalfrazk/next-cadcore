@@ -1,8 +1,11 @@
 "use server"
 
+import { uniqBy } from "lodash";
+
 import { parseFactory } from "@/utils/parse-factory";
 import { ProfileListSchema, ProfileSchema, ProfileUpdateRequestModel } from "../models/Profile";
 import { serverApi } from "./serverApi";
+import { whoAmI } from "./auth";
 
 const ProfileDataParser = parseFactory(ProfileSchema, "ProfileDataParser")
 const ProfileListDataParser = parseFactory(ProfileListSchema, "ProfileListDataParser")
@@ -32,8 +35,22 @@ const getEmployeesListApi = async () => {
 }
 
 const getClientListApi = async () => {
-  const { data } = await serverApi().from("profiles").select('*, role (id, name)').order("created_at", { ascending: true })
-  return ProfileListDataParser(data?.filter(item => (item.role.name === "client")))
+  const user = await whoAmI()
+  const role_name = user?.profile.role.name
+
+  let result;
+  if (role_name === "admin") {
+    result = await serverApi().from("profiles").select('*, role (id, name)').order("created_at", { ascending: true })
+  } else if (role_name === "employee") {
+    const loggedInUserId = user?.profile.id
+
+    const { data } = await serverApi().from("employee_assignment").select("client_id").eq("employee_id", loggedInUserId)
+    const distinctClientIds = uniqBy(data, item => item.client_id).map(item => item.client_id)
+
+    result = await serverApi().from("profiles").select('*, role (id, name)').in("id", distinctClientIds).order("created_at", { ascending: true })
+  }
+
+  return ProfileListDataParser(result?.data?.filter(item => (item.role.name === "client")))
 }
 
 const getProfileByIdApi = async (id: string) => {

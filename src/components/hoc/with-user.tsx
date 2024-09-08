@@ -1,10 +1,8 @@
-import { User } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
 
-import ProfileProvider from "@/context/profile-context";
-import { ProfileModel } from "@/lib/models/Profile";
 import { getProfileByIdApi } from "@/lib/supabase/profiles";
 import { createClient } from "@/utils/supabase/server";
+import { ProfileModel } from "@/lib/models/Profile";
 
 export type UserHocProps = {
   me: ProfileModel;

@@ -1,26 +1,16 @@
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Menu, rem, Avatar, Text } from "@mantine/core";
 import { IconSettings, IconLogout2 } from "@tabler/icons-react";
 
 import { constants } from "@/constants";
 import { useZIndex } from "@/hooks/use-z-index";
 import { logout } from "@/lib/actions/auth";
-import { createClient } from "@/utils/supabase/client";
-import { Session } from "@supabase/supabase-js";
-import { useRouter } from "next/navigation";
+import { useProfileContext } from "@/context/profile-context";
 
 const AvatarMenu = ({ color }: { color?: string }) => {
   const z = useZIndex();
   const router = useRouter();
-  const [user, setUser] = useState<Session>();
-
-  const getUserSession = async () => {
-    const supabase = createClient();
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
-    if (session) setUser(session);
-  };
+  const { me } = useProfileContext();
 
   const goToDashboard = () => {
     router.push(constants.routes.DASHBOARD);
@@ -29,10 +19,6 @@ const AvatarMenu = ({ color }: { color?: string }) => {
   const logoutHandler = async () => {
     await logout();
   };
-
-  useEffect(() => {
-    getUserSession();
-  }, []);
 
   return (
     <Menu
@@ -45,7 +31,7 @@ const AvatarMenu = ({ color }: { color?: string }) => {
     >
       <Menu.Target>
         <Avatar
-          name={`${user?.user.user_metadata.first_name} ${user?.user.user_metadata.last_name}`}
+          name={`${me?.profile.first_name} ${me?.profile.last_name}`}
           color={color ?? "var(--mantine-color-primary-7)"}
         />
       </Menu.Target>
@@ -53,13 +39,10 @@ const AvatarMenu = ({ color }: { color?: string }) => {
       <Menu.Dropdown aria-hidden="false">
         <Menu.Label>
           <Text fw={700} c="black">
-            {user?.user.user_metadata.first_name}{" "}
-            {user?.user.user_metadata.last_name}
+            {me?.profile.first_name} {me?.profile.last_name}
           </Text>
           <Text size="sm" truncate="end">
-            {user?.user.user_metadata.email}
-            {user?.user.user_metadata.email}
-            {user?.user.user_metadata.email}
+            {me?.profile.email}
           </Text>
         </Menu.Label>
         <Menu.Item

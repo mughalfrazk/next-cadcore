@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { Modal } from "@mantine/core";
 import sortBy from "lodash/sortBy";
@@ -13,33 +13,38 @@ import EmployeeAssignmentForm from "./EmployeeAssignmentForm";
 import HeadingBar from "../common/HeadingBar";
 import Table from "../common/Table";
 
-const columns = [
-  {
-    accessor: "name",
-    title: "Project",
-    render: ({ project }: EmployeeAssignmentTableData) => project?.name,
-  },
-  {
-    accessor: "id",
-    title: "Client",
-    render: ({ client }: EmployeeAssignmentTableData) =>
-      client && `${client?.first_name} ${client?.last_name}`,
-  },
-  {
-    accessor: "Actions",
-    textAlign: "right",
-    render: EmployeeAssignmentActionCell,
-  },
-];
-
 type EmployeeAssignmentListProps = {};
 
 const EmployeeAssignmentList = ({}: EmployeeAssignmentListProps) => {
   const { client } = useClientContext();
   const [opened, { open, close }] = useDisclosure(false);
-  const { data, isLoading } = useEmployeeAssignmentByEmployeeQuery(
+  const { data, isLoading, mutate } = useEmployeeAssignmentByEmployeeQuery(
     client?.id as string
   );
+
+  const columns = [
+    {
+      accessor: "name",
+      title: "Project",
+      render: ({ project }: EmployeeAssignmentTableData) => project?.name,
+    },
+    {
+      accessor: "id",
+      title: "Client",
+      render: ({ client }: EmployeeAssignmentTableData) =>
+        client && `${client?.first_name} ${client?.last_name}`,
+    },
+    {
+      accessor: "Actions for Project Files",
+      textAlign: "right",
+      render: (record: EmployeeAssignmentTableData) => (
+        <EmployeeAssignmentActionCell
+          record={record}
+          refreshAssignmentListQuery={mutate}
+        />
+      ),
+    },
+  ];
 
   return (
     <Fragment>

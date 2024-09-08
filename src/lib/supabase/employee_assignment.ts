@@ -41,7 +41,7 @@ const createEmployeeAssignmentApi = async (payload: CreateEmployeeAssignmentRequ
     await Promise.all(promises)
   }
 
-  revalidatePath("dashboard/user", "layout")
+  revalidatePath(`dashboard/user/${payload.employee_id}`, "page")
 }
 
 const getEmployeeAssignmentByEmployeeApi = async (employeeId: string) => {
@@ -91,8 +91,6 @@ const updateEmpoyeeAssignmentApi = async (payload: UpdateEmployeeAssignmentReque
     result = await serverApi().from("employee_assignment")
       .insert(createPayload)
   }
-  console.log("result: ", result.data)
-  console.log("error: ", result.error)
 
   revalidatePath(`dashboard/user/${payload.employee_id}`, "page")
 }

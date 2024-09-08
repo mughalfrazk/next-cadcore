@@ -1,17 +1,18 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { Checkbox, Group, Popover, Select, Stack, Text } from "@mantine/core";
+import { ChangeEvent, Fragment, useState } from "react";
+import { Checkbox, Group, Popover, Paper, Stack, Text } from "@mantine/core";
+import { useClickOutside } from "@mantine/hooks";
+import { KeyedMutator } from "swr";
 
 import { EmployeeAssignmentTableData } from "@/lib/models/EmployeeAssignment";
 import { updateEmpoyeeAssignmentApi } from "@/lib/supabase/employee_assignment";
 import { useActionListQuery } from "@/hooks/query/action";
 import CButton from "../core/CButton";
-import { useClickOutside } from "@mantine/hooks";
 
 const ActionLabel = {
-  create: "Add",
+  create: "Add New File",
   read: "View",
-  update: "Update",
-  delete: "Delete",
+  update: "Update Status of File",
+  delete: "Delete File",
 };
 
 const PermissionCheckbox = ({
@@ -28,24 +29,14 @@ const PermissionCheckbox = ({
     action_id: number
   ) => Promise<void>;
 }) => {
-  const [opened, setOpened] = useState<boolean>(false);
   const [persistedEvent, setPersistedEvent] =
-    useState<ChangeEvent<HTMLInputElement>>();
-
-  const handleClickOutside = () => setOpened(false);
-
-  // useEffect(() => {
-  //   document.addEventListener("mouseup", handleClickOutside);
-  //   return () => {
-  //     console.log("unmounted");
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
+    useState<ChangeEvent<HTMLInputElement> | null>();
+  const popoverRef = useClickOutside(() => setPersistedEvent(null));
 
   return (
     <Popover
       key={i.id}
-      opened={opened}
+      opened={!!persistedEvent}
       width={200}
       position="bottom"
       withArrow
@@ -54,35 +45,48 @@ const PermissionCheckbox = ({
       <Popover.Target>
         <Checkbox
           checked={!!action.find((j) => j.name === i.name)}
-          label={i.name.toLocaleUpperCase()}
-          onChange={(event: ChangeEvent<HTMLInputElement>) => {
-            setOpened(true);
-            setPersistedEvent(event);
-          }}
+          label={ActionLabel[i.name]}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            setPersistedEvent(event)
+          }
         />
       </Popover.Target>
       <Popover.Dropdown bg="var(--mantine-color-body)">
-        <Text size="sm">Are you sure you want to update the permission?</Text>
-        <Stack mt={10} gap={4}>
-          <CButton fullWidth variant="subtle" onClick={() => setOpened(false)}>
-            Cancel
-          </CButton>
-          <CButton
-            fullWidth
-            loading={loading}
-            onClick={() =>
-              persistedEvent && onChangeHandler(persistedEvent, i.id)
-            }
-          >
-            Confirm
-          </CButton>
-        </Stack>
+        <Paper ref={popoverRef} shadow="sm">
+          <Text size="sm">Are you sure you want to update the permission?</Text>
+          <Stack mt={10} gap={4}>
+            <CButton
+              fullWidth
+              variant="subtle"
+              onClick={() => setPersistedEvent(null)}
+            >
+              Cancel
+            </CButton>
+            <CButton
+              fullWidth
+              loading={loading}
+              onClick={() =>
+                persistedEvent && onChangeHandler(persistedEvent, i.id)
+              }
+            >
+              Confirm
+            </CButton>
+          </Stack>
+        </Paper>
       </Popover.Dropdown>
     </Popover>
   );
 };
 
-const EmployeeAssignmentActionCell = (record: EmployeeAssignmentTableData) => {
+type EmployeeAssignmentActionCellProps = {
+  record: EmployeeAssignmentTableData;
+  refreshAssignmentListQuery: KeyedMutator<unknown>;
+};
+
+const EmployeeAssignmentActionCell = ({
+  record,
+  refreshAssignmentListQuery,
+}: EmployeeAssignmentActionCellProps) => {
   const { data: actionList } = useActionListQuery();
   const { employee, client, project, action } = record;
 
@@ -104,6 +108,7 @@ const EmployeeAssignmentActionCell = (record: EmployeeAssignmentTableData) => {
       };
 
       await updateEmpoyeeAssignmentApi(payload);
+      await refreshAssignmentListQuery();
     } catch (error) {
     } finally {
       setLoading(false);
