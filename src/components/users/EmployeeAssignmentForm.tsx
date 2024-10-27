@@ -8,7 +8,7 @@ import {
 } from "@/hooks/query/client";
 import CButton from "../core/CButton";
 import { useActionListQuery } from "@/hooks/query/action";
-import { createEmployeeAssignmentApi } from "@/lib/supabase/employee_assignment";
+import { createEmployeeAssignmentApi } from "@/lib/supabase/employee_assignment.service";
 import { CreateEmployeeAssignmentRequestModel } from "@/lib/models/EmployeeAssignment";
 import { useClientContext } from "@/context/client-context";
 

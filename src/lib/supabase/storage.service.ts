@@ -8,8 +8,8 @@ import { v4 as uuidv4 } from "uuid"
 import { parseFactory } from "@/utils/parse-factory"
 import { FileFormDataPayload, FileListSchema } from "../models/File"
 import { serverApi } from "./serverApi"
-import { getFileStatusByName } from "./file_status"
-import { createProjectFileApi } from "./project_file"
+import { getFileStatusByName } from "./file_status.service"
+import { createProjectFileApi } from "./project_file.service"
 
 const FileListDataParser = parseFactory(FileListSchema, "FileListDataParser")
 

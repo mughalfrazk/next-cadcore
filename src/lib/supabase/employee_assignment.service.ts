@@ -1,13 +1,14 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { EmployeeAssignmentListSchema, CreateEmployeeAssignmentRequestModel, EmployeeAssignmentTableData, UpdateEmployeeAssignmentRequestModel } from "../models/EmployeeAssignment"
+import { EmployeeAssignmentListSchema, CreateEmployeeAssignmentRequestModel, EmployeeAssignmentTableData, UpdateEmployeeAssignmentRequestModel, EmployeeAssignmentSchema } from "../models/EmployeeAssignment"
 import { ServerResponse } from "@/utils/server-response"
 import { serverApi } from "./serverApi"
-import { getProjectListByClientApi } from "./project"
+import { getProjectListByClientApi } from "./project.service"
 import { parseFactory } from "@/utils/parse-factory"
 
 const EmployeeAssignmentListDataParser = parseFactory(EmployeeAssignmentListSchema, "EmployeeAssignmentListDataParser")
+const EmployeeAssignmentDataParser = parseFactory(EmployeeAssignmentSchema, "EmployeeAssignmentDataParser")
 
 const isRecordDuplicating = async (payload: CreateEmployeeAssignmentRequestModel) => {
   const checkingRepitition = await serverApi()
@@ -24,10 +25,11 @@ const isRecordDuplicating = async (payload: CreateEmployeeAssignmentRequestModel
 
 const createEmployeeAssignmentApi = async (payload: CreateEmployeeAssignmentRequestModel) => {
   const checkingRepitition = await isRecordDuplicating(payload)
-  if (checkingRepitition) return ServerResponse("Error", null, "Bad Request", "Data already exists")
+  if (checkingRepitition) return ServerResponse(null, "Bad Request", "Data already exists")
 
   if (payload.project_id) {
-    const result = await serverApi().from("employee_assignment").insert(payload)
+    const { error } = await serverApi().from("employee_assignment").insert(payload)
+    if (error) throw error
   } else {
     const projects = await getProjectListByClientApi(payload.client_id)
 
@@ -54,6 +56,7 @@ const getEmployeeAssignmentByEmployeeApi = async (employeeId: string) => {
       project (id, name)`
     ).eq("employee_id", employeeId)
 
+  if (error) throw error
   const employeeAssignmentList = EmployeeAssignmentListDataParser(data)
   const newArray = employeeAssignmentList.reduce((acc: EmployeeAssignmentTableData[], curr) => {
     let foundRecord = false;
@@ -75,9 +78,27 @@ const getEmployeeAssignmentByEmployeeApi = async (employeeId: string) => {
   return newArray
 }
 
+const getEmployeeAssignmentByClientApi = async (clientId: string) => {
+  const { data: { user }, error: authError } = await serverApi().auth.getUser();
+  if (authError || !user?.id) throw authError
+
+  const { data, error } = await serverApi()
+    .from("employee_assignment")
+    .select(`id, created_at,
+      client:profiles!employee_assignment_client_id_fkey (id, first_name, last_name), 
+      employee:profiles!employee_assignment_employee_id_fkey (id, first_name, last_name), 
+      action (id, name),
+      project (id, name)`)
+    .eq("employee_id", user.id)
+    .eq("client_id", clientId)
+
+  if (error) throw error
+  return EmployeeAssignmentListDataParser(data)
+}
+
 const updateEmpoyeeAssignmentApi = async (payload: UpdateEmployeeAssignmentRequestModel) => {
   let result;
-  console.log(payload)
+
   if (payload.delete) {
     result = await serverApi().from("employee_assignment")
       .delete()
@@ -91,8 +112,14 @@ const updateEmpoyeeAssignmentApi = async (payload: UpdateEmployeeAssignmentReque
     result = await serverApi().from("employee_assignment")
       .insert(createPayload)
   }
+  if (result?.error) throw result?.error
 
   revalidatePath(`dashboard/user/${payload.employee_id}`, "page")
 }
 
-export { createEmployeeAssignmentApi, getEmployeeAssignmentByEmployeeApi, updateEmpoyeeAssignmentApi }
+export {
+  createEmployeeAssignmentApi,
+  getEmployeeAssignmentByEmployeeApi,
+  getEmployeeAssignmentByClientApi,
+  updateEmpoyeeAssignmentApi
+}

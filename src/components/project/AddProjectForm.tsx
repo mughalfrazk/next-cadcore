@@ -12,7 +12,7 @@ import {
 } from "@/lib/models/Project";
 import { createProjectSchema } from "@/validators/project";
 import { clientApi } from "@/lib/supabase/client/clientApi";
-import { createNewProjectApi } from "@/lib/supabase/project";
+import { createNewProjectApi } from "@/lib/supabase/project.service";
 import { useClientContext } from "@/context/client-context";
 
 const AddProjectForm = ({ closeModal }: { closeModal: () => void }) => {

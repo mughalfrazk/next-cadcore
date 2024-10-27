@@ -1,5 +1,9 @@
+"use client"
+
 import { MouseEventHandler, ReactNode } from "react";
 import { Button, ButtonProps } from "@mantine/core";
+
+import CSubmitButton, { SubmitButtonProps } from "./CSubmitButton";
 import classes from "./CButton.module.css";
 
 const getHeight = (size: string) => {
@@ -22,10 +26,11 @@ export interface CButtonProps extends ButtonProps {
   children: ReactNode;
   ariaLabel?: string;
   variant?: "filled" | "light" | "outline" | "subtle";
-  onClick?: MouseEventHandler<HTMLButtonElement>;
   size?: "xs" | "sm" | "md" | "lg" | "xl";
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   isIconOnly?: boolean;
   isCompact?: boolean;
+  isSubmit?: boolean;
 }
 
 const CButton = ({
@@ -35,24 +40,31 @@ const CButton = ({
   size = "lg",
   onClick,
   isIconOnly = false,
-  isCompact = false,
+  isSubmit = false,
   ...defaultProps
 }: CButtonProps) => {
-  return (
+  const ButtonComponent = (submitProps: SubmitButtonProps) => (
     <Button
       variant={variant}
       classNames={classes}
       aria-label={ariaLabel}
       h={getHeight(size)}
-      px={isIconOnly && isCompact ? 9 : undefined}
+      px={isIconOnly ? 7 : undefined}
       onClick={onClick}
       style={{ ...defaultProps.style }}
       loaderProps={{ type: "dots" }}
       {...defaultProps}
+      {...submitProps}
     >
       {children}
     </Button>
   );
+
+  if (isSubmit) {
+    return <CSubmitButton btn={ButtonComponent} />;
+  }
+
+  return <ButtonComponent />;
 };
 
 export default CButton;

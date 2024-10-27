@@ -1,4 +1,4 @@
-import { getClientListApi } from "@/lib/supabase/profiles";
+import { getClientListApi } from "@/lib/supabase/profiles.service";
 import { NextResponse } from "next/server";
 
 export async function GET() {

@@ -9,12 +9,13 @@ const ProjectFileListDataParser = parseFactory(ProjectFileListSchema, "ProjectFi
 
 const createProjectFileApi = async (payload: ProfileFileRequestModel) => {
   const { data, error } = await serverApi().from("project_file").insert(payload)
-  console.log(error)
+  if (error) throw error
   return data
 }
 
 const getFileListByProjectForTreeApi = async (project_id: number) => {
-  const { data } = await serverApi().from("project_file").select("*, file_status (id, name)").eq("project_id", project_id)
+  const { data, error } = await serverApi().from("project_file").select("*, file_status (id, name)").eq("project_id", project_id)
+  if (error) throw error
   const fileList = ProjectFileListDataParser(data)
   const treeNodeData: TreeNodeData[] = fileList.map(item => ({
     label: item.alias,

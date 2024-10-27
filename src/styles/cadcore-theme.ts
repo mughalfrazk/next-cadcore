@@ -1,14 +1,15 @@
 "use client"
 
-import { DEFAULT_THEME, Loader, MantineThemeOverride, createTheme, mergeMantineTheme, virtualColor } from '@mantine/core'
+import { DEFAULT_THEME, Loader, MantineThemeOverride, createTheme, mergeMantineTheme } from '@mantine/core'
 import { CssLoader } from './CssLoader'
+import { generateColors } from '@mantine/colors-generator'
 
 export const cadcoreTheme: MantineThemeOverride = createTheme({
   white: '#FFFFFF',
   black: '#000000',
   colors: {
-    // main 7
-    primary: ['', '#C9F7D3', '', '#fa743e', '', '', '', '#f76024', '', '#d43a00'],
+    // main 7 = #f76024
+    primary: generateColors("#f76024"),
     // main 1
     secondary: ['', '#4d4d4d', '', '', '', '', '', '', '', ''],
     grey: ['#f1f5f8', '#f7602445', '#f760244f', '#b3b3b3', '#999999', '', '', '', '', ''],
