@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getProjectListByClientApi } from "@/lib/supabase/project";
+import { getProjectListByClientApi } from "@/lib/supabase/project.service";
 
 export async function GET(request: NextRequest) {
   // ?clientId={string}

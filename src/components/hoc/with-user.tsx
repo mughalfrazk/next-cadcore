@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import { getProfileByIdApi } from "@/lib/supabase/profiles";
+import { getProfileByIdApi } from "@/lib/supabase/profiles.service";
 import { createClient } from "@/utils/supabase/server";
 import { ProfileModel } from "@/lib/models/Profile";
 

@@ -3,7 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import JSZip from "jszip";
 
-import { getFileDetailByPathApi } from "@/lib/supabase/client/storage";
+import { getFileDetailByPathApi } from "@/lib/supabase/client/storage.service";
 import { isGlb, isGltf, isZip } from "@/utils/isExtension";
 
 import { useViewerContext } from "@/context/viewer-context";

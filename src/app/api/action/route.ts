@@ -1,4 +1,4 @@
-import { getAllActionsApi } from "@/lib/supabase/action";
+import { getAllActionsApi } from "@/lib/supabase/action.service";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {

@@ -9,11 +9,13 @@ const RoleDataParser = parseFactory(RoleSchema, "RoleDataParser")
 
 const getAllRolesApi = async () => {
   const { data, error } = await serverApi().from("role").select()
+  if (error) throw error
   return RoleListDataParser(data)
 }
 
 const getRoleByName = async (name: string) => {
-  const { data } = await serverApi().from("role").select().eq("name", name)
+  const { data, error } = await serverApi().from("role").select().eq("name", name)
+  if (error) throw error
   return RoleDataParser(data?.[0])
 }
 

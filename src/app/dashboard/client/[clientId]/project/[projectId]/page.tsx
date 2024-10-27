@@ -1,5 +1,5 @@
-import { getProjectDetailWithFilesTreeByIdApi } from "@/lib/supabase/project";
-import { getProfileByIdApi } from "@/lib/supabase/profiles";
+import { getProjectDetailWithFilesTreeByIdApi } from "@/lib/supabase/project.service";
+import { getProfileByIdApi } from "@/lib/supabase/profiles.service";
 import ClientContextWrapper from "@/components/client/ClientContextWrapper";
 import ProjectPage from "@/components/project/ProjectPage";
 

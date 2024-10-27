@@ -4,7 +4,7 @@ import { useClickOutside } from "@mantine/hooks";
 import { KeyedMutator } from "swr";
 
 import { EmployeeAssignmentTableData } from "@/lib/models/EmployeeAssignment";
-import { updateEmpoyeeAssignmentApi } from "@/lib/supabase/employee_assignment";
+import { updateEmpoyeeAssignmentApi } from "@/lib/supabase/employee_assignment.service";
 import { useActionListQuery } from "@/hooks/query/action";
 import CButton from "../core/CButton";
 

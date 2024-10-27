@@ -31,7 +31,7 @@ const ClientPage = ({ client }: { client: ProfileModel }) => {
                 <Text size="sm">{client?.email}</Text>
               </Stack>
             </Group>
-            <Card bg={"gray.1"}>
+            <Card withBorder>
               <Group gap={0} px={5}>
                 <IconFile3d
                   style={{ width: rem(50), height: rem(50) }}

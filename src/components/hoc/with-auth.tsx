@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 
 import ProfileProvider from "@/context/profile-context";
 import { ProfileModel } from "@/lib/models/Profile";
-import { getProfileByIdApi } from "@/lib/supabase/profiles";
+import { getProfileByIdApi } from "@/lib/supabase/profiles.service";
 import { createClient } from "@/utils/supabase/server";
 
 export type AuthHocProps = {

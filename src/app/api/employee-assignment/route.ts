@@ -1,4 +1,4 @@
-import { getEmployeeAssignmentByEmployeeApi } from "@/lib/supabase/employee_assignment";
+import { getEmployeeAssignmentByEmployeeApi } from "@/lib/supabase/employee_assignment.service";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {

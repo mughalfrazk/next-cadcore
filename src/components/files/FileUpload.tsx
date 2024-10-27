@@ -13,7 +13,7 @@ import {
 import { FileWithPath } from "@mantine/dropzone";
 
 import CButton from "../core/CButton";
-import { uploadFileApi } from "@/lib/supabase/storage";
+import { uploadFileApi } from "@/lib/supabase/storage.service";
 import { ProfileModel } from "@/lib/models/Profile";
 import { FileFormDataPayload } from "@/lib/models/File";
 import FileDropzone from "../common/FileDropzone";

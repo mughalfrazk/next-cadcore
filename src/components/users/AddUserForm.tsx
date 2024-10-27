@@ -11,7 +11,7 @@ import { createUserWithRole } from "@/lib/actions/auth";
 import { createUserSchema } from "@/validators/auth";
 import { CreateUserFormType } from "@/lib/models/Auth";
 import { notifyError, setValidationError } from "@/utils/error";
-import { getAllRolesApi } from "@/lib/supabase/roles";
+import { getAllRolesApi } from "@/lib/supabase/roles.service";
 
 const AddUserForm = ({ closeModal }: { closeModal: () => void }) => {
   const [loading, setLoading] = useState(false);

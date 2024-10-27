@@ -1,6 +1,6 @@
 .root {
-  &[data-variant='filled'] {
-    background-color: var(--mantine-color-primary-7);
+  &[data-variant="filled"] {
+    background-color: var(--mantine-color-primary-6);
 
     path {
       stroke: var(--mantine-color-white);
@@ -11,96 +11,97 @@
     }
 
     &:hover {
-      background-color: var(--mantine-color-primary-3);
+      background-color: var(--mantine-color-primary-7);
     }
 
     &:disabled {
-      background-color: var(--mantine-color-grey-1);
+      background-color: var(--mantine-color-primary-1);
       cursor: default;
 
       path {
-        stroke: var(--mantine-color-primary-7);
+        stroke: var(--mantine-color-primary-6);
         opacity: 0.3;
       }
 
       p {
-        color: var(--mantine-color-primary-7) !important;
+        color: var(--mantine-color-primary-6) !important;
         opacity: 0.3;
       }
     }
   }
 
-  &[data-variant='light'] {
-    background-color: var(--mantine-color-grey-1);
+  &[data-variant="light"] {
+    background-color: light-dark(var(--mantine-color-primary-1), var(--mantine-color-primary-6));
 
     &:hover {
-      background-color: var(--mantine-color-grey-2);
+      background-color: light-dark(var(--mantine-color-primary-2), var(--mantine-color-primary-7));
     }
 
     &:disabled {
-      background-color: var(--mantine-color-grey-1);
+      background-color: var(--mantine-color-primary-1);
       cursor: default;
 
       path {
-        stroke: var(--mantine-color-primary-7);
+        stroke: black;
         opacity: 0.3;
       }
 
       p {
-        color: var(--mantine-color-primary-7) !important;
+        color: black !important;
         opacity: 0.3;
       }
     }
   }
 
-  &[data-variant='outline'] {
-    border-color: var(--mantine-color-primary-7);
+  &[data-variant="outline"] {
+    border-color: var(--mantine-color-primary-6);
+    color: var(--mantine-color-primary-6);
 
     &:hover {
-      background-color: var(--mantine-white);
-      border-color: var(--mantine-color-primary-3);
+      border-color: var(--mantine-color-primary-6);
 
       path {
-        stroke: var(--mantine-color-primary-3);
+        stroke: var(--mantine-color-primary-6);
       }
 
       p {
-        color: var(--mantine-color-primary-3) !important;
+        color: var(--mantine-color-primary-6) !important;
       }
     }
 
     &:disabled {
-      border-color: var(--mantine-color-primary-7);
-      background-color: var(--mantine-white);
-      opacity: 0.32;
-      cursor: default;
-
-      path {
-        stroke: var(--mantine-color-primary-7);
-      }
-
-      p {
-        color: var(--mantine-color-primary-7) !important;
-      }
-    }
-  }
-
-  &[data-variant='subtle'] {
-    &:hover {
-      background-color: var(--mantine-color-grey-1);
-    }
-
-    &:disabled {
+      border-color: var(--mantine-color-primary-6);
       background-color: var(--mantine-white);
       opacity: 0.32;
       cursor: default;
 
       path {
-        stroke: var(--mantine-color-primary-7);
+        stroke: var(--mantine-color-primary-6);
       }
 
       p {
-        color: var(--mantine-color-primary-7) !important;
+        color: var(--mantine-color-primary-6) !important;
+      }
+    }
+  }
+
+  &[data-variant="subtle"] {
+    color: var(--mantine-color-primary-6);
+    &:hover {
+      /* background-color: light-dark(var(--mantine-color-primary-0), var(--mantine-white)); */
+    }
+
+    &:disabled {
+      background-color: var(--mantine-white);
+      opacity: 0.32;
+      cursor: default;
+
+      path {
+        stroke: var(--mantine-color-primary-6);
+      }
+
+      p {
+        color: var(--mantine-color-primary-6) !important;
       }
     }
   }

@@ -2,11 +2,11 @@
 
 import { parseFactory } from "@/utils/parse-factory"
 import { ProjectListSchema, ProjectRequestModel, ProjectWithFilesSchema } from "../models/Project"
-import { getProjectStatusByName } from "./project_status"
+import { getProjectStatusByName } from "./project_status.service"
 import { serverApi } from "./serverApi"
 import { revalidatePath } from "next/cache"
 import { TreeNodeData } from "@mantine/core"
-import { whoAmI } from "./auth"
+import { whoAmI } from "./auth.service"
 import { uniqBy } from "lodash"
 
 const ProjectListDataParser = parseFactory(ProjectListSchema, "ProjectListDataParser")
@@ -39,16 +39,17 @@ const getProjectListByClientApi = async (clientId: string) => {
     result = await serverApi().from("project").select('*, project_status (id, name), project_file (id)')
       .eq("client_id", clientId)
       .in("id", distinctProjectIds)
-      
+
 
     // result = { data: [] }
   }
-
+  if (result?.error) throw result?.error
   return ProjectListDataParser(result?.data)
 }
 
 const getProjectDetailWithFilesTreeByIdApi = async (projectId: number) => {
-  const { data } = await serverApi().from("project").select('*, project_status (id, name), project_file (*, file_status (id, name))').eq("id", projectId)
+  const { data, error } = await serverApi().from("project").select('*, project_status (id, name), project_file (*, file_status (id, name))').eq("id", projectId)
+  if (error) throw error
   const project = ProjectWithFilesDataParser(data?.[0])
   const treeNodeData: TreeNodeData[] = project.project_file.map((item) => ({
     label: item.alias,

@@ -6,8 +6,8 @@ import "@mantine/dropzone/styles.css";
 import { Notifications } from "@mantine/notifications";
 import { ColorSchemeScript, MantineProvider } from "@mantine/core";
 
-import { cadcoreTheme } from "@/styles/cadcore-theme";
 import GlobalSWRConfig from "@/components/common/GlobalSWRConfig";
+import { cadcoreTheme } from "@/styles/cadcore-theme";
 
 export const metadata = {
   title: "Cadcore",
